@@ -1,0 +1,84 @@
+.item-card-gallery-card {
+  flex: 1;
+  width: 100%;
+  display: flex;
+  position: relative;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+}
+ 
+.item-card-container1 {
+  width: 100%;
+  display: flex;
+  padding: var(--dl-space-space-twounits);
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+}
+ 
+.item-card-container2 {
+  flex: 0 0 auto;
+  width: auto;
+  height: auto;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+}
+ 
+.item-card-button {
+  width: 156px;
+  height: 160px;
+  display: flex;
+  align-self: center;
+  align-items: flex-end;
+  border-radius: var(--dl-radius-radius-radius8);
+  flex-direction: column-reverse;
+  justify-content: flex-end;
+}
+ 
+.item-card-text1 {
+  font-size: 25px;
+  line-height: 1;
+}
+ 
+.item-card-image {
+  width: 110px;
+  height: 100px;
+  align-self: center;
+  margin-top: -10px;
+  object-fit: cover;
+  margin-bottom: -10px;
+}
+ 
+.item-card-container3 {
+  border: 2px dashed rgba(120, 120, 120, 0.4);
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  justify-content: center;
+}
+ 
+.item-card-text2 {
+  display: inline-block;
+}
+ 
+.item-cardroot-class-name {
+  flex: 1;
+}
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+@media(max-width: 767px) {
+  .item-card-gallery-card {
+    flex-direction: column;
+  }
+}
