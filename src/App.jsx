@@ -37,13 +37,14 @@ function App() {
                       rootClassName="rootClassName2"
                     />
 
+<Link to="/addproduct">
                      <ItemCard
                       name="Luxury Executive Chair"
                       text={<Fragment><span className="home-text20">Add Product</span></Fragment>}
                       imageSrc2="/iconviewproduct.png"
                       rootClassName="rootClassName2"
                     />
-
+</Link>
 <ItemCard
                       name="Luxury Executive Chair"
                       text={<Fragment><span className="home-text20">Add Admin</span></Fragment>}
