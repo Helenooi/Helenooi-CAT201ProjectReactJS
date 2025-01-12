@@ -2,7 +2,9 @@ import { Fragment } from 'react';
 import './style.css';
 import '../src/views/home.css';
 import React, { useState } from 'react';
-
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import UserMainPage from "./views/usermain";
+import UserProfilePage from "./views/userprofile"
 import NavBar from './views/nabvar';
 import Footer from './views/footer';
 import SectionHeading from '../src/components/section-heading';
@@ -14,6 +16,14 @@ function App() {
 
   return (
     <>
+    <Router>
+      <Routes>
+        <Route path="/" element={<UserMainPage />} />
+        <Route path="/profile" element={<UserProfilePage />} />
+        <Route path="*" element={<h1>404 - Page Not Found</h1>} />
+      </Routes>
+    </Router>
+
       <div>
       <NavBar role={role}/>
         <div className="home-main">
@@ -51,7 +61,7 @@ function App() {
                       imageSrc2="/iconviewproduct.png"
                       rootClassName="rootClassName2"
                     />
-                   
+                  
                   </div>
                   <div className="home-bottom"></div>
                 </div>
