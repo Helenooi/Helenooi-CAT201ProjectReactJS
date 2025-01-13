@@ -4,9 +4,11 @@ import Footer from "./footer";
 import "./userprofile.css";
 
 const UserProfilePage = () => {
+  const role = "user";
+  
   return (
     <div>
-      <NavBar />
+      <NavBar role={role} />
       <main className="user-profile">
         <h1>User Profile</h1>
         <div className="profile-details">

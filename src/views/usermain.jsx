@@ -4,6 +4,7 @@ import Footer from "./footer";
 import "./usermain.css";
 import SectionHeading from "../components/section-heading";
 import { Link } from "react-router-dom";
+import UserProfilePage from "./userprofile.jsx";
 
 
 const UserMainPage = () => {
@@ -55,13 +56,14 @@ const UserMainPage = () => {
         </div>
 
         <div className="menu">
-          {menuOptions.map((option, index) => (
-           <Link to="/profile" className="menu-item">
-              <img src={option.icon} alt={option.label} className="card-icon" />
-              <span className="card-label">{option.label}</span>
-              </Link>
-          ))}
-        </div>
+  {menuOptions.map((option, index) => (
+    <Link to={option.link} className="menu-item" key={index}>
+      <img src={option.icon} alt={option.label} className="card-icon" />
+      <span className="card-label">{option.label}</span>
+    </Link>
+  ))}
+  </div>
+
         
         <h1><br/><br/></h1>
         <h2 className="section-heading">FEATURED COLLECTIONS</h2>
