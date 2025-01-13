@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import NavBar from './nabvar';
 import Footer from './footer';
 import './utils.css';
-import './style.css';
+import './adminForm.css';
 import './modern-normalize.css';
 import './addproduct.css';
 

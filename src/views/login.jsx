@@ -4,7 +4,7 @@ import NavBar from "./nabvar";
 import Footer from "./footer";
 import './login.css';
 import './utils.css';
-import './style.css';
+import './adminForm.css';
 const Login = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
