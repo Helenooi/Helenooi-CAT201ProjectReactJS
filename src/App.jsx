@@ -16,13 +16,6 @@ function App() {
 
   return (
     <>
-    <Router>
-      <Routes>
-        <Route path="/" element={<UserMainPage />} />
-        <Route path="/profile" element={<UserProfilePage />} />
-        <Route path="*" element={<h1>404 - Page Not Found</h1>} />
-      </Routes>
-    </Router>
 
       <div>
       <NavBar role={role}/>
