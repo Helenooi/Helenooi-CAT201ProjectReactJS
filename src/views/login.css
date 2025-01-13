@@ -27,16 +27,17 @@
     color: var(--clr-slate800);
     text-transform: uppercase;
     font-size: var(--size-xl);
-    letter-spacing: -0.05em;
+    /*letter-spacing: -0.05em;*/
     line-height: 0.9;
-    margin-bottom: var(--size-3xl)
+    /*margin-bottom: var(--size-3xl);*/
+    margin-bottom: 5px;
 }
 
 .hero__input {
     border: 2px solid var(--clr-slate400);
     border-radius: 15rem;
     width: 14rem;
-    margin: var(--size-sm);
+    /*margin: var(--size-sm);*/
     padding: var(--size-xs);
     font-weight: 600;
 }

@@ -1,57 +1,68 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
-import NavBar from "./nabvar";
-import Footer from "./footer";
+import { useNavigate } from "react-router-dom";
+import NavBar from "./nabvar"; // Assuming a proper NavBar component
+import Footer from "./footer"; // Assuming a proper Footer component
 import './login.css';
 import './utils.css';
 import './adminForm.css';
+
 const Login = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
-  const [redirectPath, setRedirectPath] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
 
-  const mockUsers = [
-    { username: "admin", password: "adminpassword", role: "admin" },
-    { username: "user", password: "userpassword", role: "user" },
-  ];
-
-  const handleLogin = () => {
-    const trimmedUsername = username.trim();
-    const trimmedPassword = password.trim();
-
-    const user = mockUsers.find(
-      (user) =>
-        user.username === trimmedUsername && user.password === trimmedPassword
-    );
-
-    if (user) {
-      setErrorMessage("");
-      localStorage.setItem("username", user.username);
-      localStorage.setItem("role", user.role);
-
-      if (user.role === "admin") {
-        setRedirectPath("/adminpage");
-      } else if (user.role === "user") {
-        setRedirectPath("/userpage");
+  const handleLogin = async () => {
+    if (!username.trim() || !password.trim()) {
+      setErrorMessage("Username and Password cannot be empty.");
+      return;
+    }
+  
+    setLoading(true);
+    setErrorMessage("");
+  
+    try {
+      const response = await fetch("http://localhost:8080/api/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          username: username.trim(),
+          password: password.trim(),
+        }),
+      });
+  
+      const result = await response.json();
+  
+      if (result.status === "success") {
+        localStorage.setItem("username", result.username);
+        localStorage.setItem("role", result.role);
+  
+        navigate(result.role === "admin" ? "/adminpage" : "/userpage");
+      } else {
+        setErrorMessage(result.message || "Invalid username or password.");
       }
-    } else {
-      setErrorMessage("Invalid username or password.");
+    } catch (error) {
+      setErrorMessage("Unable to log in. Please try again later.");
+    } finally {
+      setLoading(false);
     }
   };
+  
 
   return (
     <>
       <NavBar />
       <main>
+      <br />
+      <br /> <br /> <br />
+     
         <section className="hero container">
-          <img
-            className="hero__img"
-            src="/logo/logo3.png"
-            alt="Suria Sabah"
-          />
-        </section>
-        <section className="hero container">
+
+      
+       
           <form
             className="hero__form"
             onSubmit={(e) => {
@@ -59,12 +70,14 @@ const Login = () => {
               handleLogin();
             }}
           >
-            <h1 className="hero__title">ADMIN LOGIN</h1>
-            {errorMessage && (
-              <p className="hero__error" id="errorMessage">
-                {errorMessage}
-              </p>
-            )}
+
+<h1 className="hero__title">   <i className="fas fa-user-circle"></i> Login</h1>
+
+
+
+            {errorMessage && <p className="hero__error">{errorMessage}</p>}
+
+            <p className="hero__subtitle">Username:</p>
             <input
               className="hero__input"
               type="text"
@@ -72,7 +85,8 @@ const Login = () => {
               onChange={(e) => setUsername(e.target.value)}
               placeholder="Username"
             />
-            <br />
+
+            <p className="hero__subtitle">Password:</p>
             <input
               className="hero__input"
               type="password"
@@ -80,16 +94,10 @@ const Login = () => {
               onChange={(e) => setPassword(e.target.value)}
               placeholder="Password"
             />
-            <br />
-            <button className="btn2 hero__login" type="submit">
-              LOGIN
+            <button className="btn2 hero__login" type="submit" disabled={loading}>
+              {loading ? "Logging in..." : "LOGIN"}
             </button>
           </form>
-          {redirectPath && (
-            <Link to={redirectPath} className="btn2 hero__login">
-              Proceed to {redirectPath === "/adminpage" ? "Admin" : "User"} Page
-            </Link>
-          )}
         </section>
       </main>
       <Footer />

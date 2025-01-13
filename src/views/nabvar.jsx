@@ -1,6 +1,7 @@
 import React, { useState} from "react";
 import { Link } from "react-router-dom";
 import "./home.css";
+import Logout from './logout.jsx';
 
 const NavBar = ({ role }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -48,18 +49,25 @@ const NavBar = ({ role }) => {
           </div> */}
           
           {/* <Link to="/userpage" className="desktop-only"> */}
+          {/* comment by helen
           <Link to="/userpage">
+          */}
             <div className="home-icons">
+              
+            <Logout/>
+              {/* comment by helen
               <img
                 alt="User Profile Icon"
                 src="/iconaddproduct.png"
                 className="home-image2"
               />
+             
               <Link to="/login" className="navbar-login">
               Login
               </Link>
+               */}
             </div>
-          </Link>
+          {/*</Link> */}
         </div>
 
         {/* <button 
