@@ -9,6 +9,8 @@ const UserProfilePage = () => {
   return (
     <div>
       <NavBar role={role} />
+      <br />
+      <br /> <br /> <br />
       <main className="user-profile">
         <h1>User Profile</h1>
         <div className="profile-details">

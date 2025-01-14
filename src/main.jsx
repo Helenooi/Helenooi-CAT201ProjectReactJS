@@ -5,6 +5,7 @@ import AddProductPage from './views/addproduct.jsx';  // Correct import
 import UserMainPage from './views/usermain.jsx';
 import UserProfilePage from "./views/userprofile"
 import Login from './views/login.jsx'; 
+import UserViewProduct from './views/user_viewProduct.jsx';
 
 import './index.css';
 
@@ -36,6 +37,10 @@ const router = createBrowserRouter([
   {
     path: "/login",
     element: <Login />, 
+  },
+  {
+    path: "/products",
+    element: <UserViewProduct role="user"/>, 
   },
 ]);
 
