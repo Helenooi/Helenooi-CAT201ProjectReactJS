@@ -6,6 +6,7 @@ import UserMainPage from './views/usermain.jsx';
 import UserProfilePage from "./views/userprofile"
 import Login from './views/login.jsx'; 
 import UserViewProduct from './views/user_viewProduct.jsx';
+import UserCart from './views/cart.jsx';
 
 import './index.css';
 
@@ -41,6 +42,10 @@ const router = createBrowserRouter([
   {
     path: "/products",
     element: <UserViewProduct role="user"/>, 
+  },
+  {
+    path: "/cart",
+    element: <UserCart/>, 
   },
 ]);
 

@@ -32,9 +32,12 @@ body {
   }
   
   .rental-image {
-    width: 100%;
-    height: auto;
-    object-fit: cover;
+    width: 100%; 
+    max-width: 300px; 
+    height: 400px; 
+    object-fit: cover; 
+    border-radius: 8px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1); 
   }
   
   .rental-title {
@@ -74,31 +77,39 @@ body {
   }
 
   /* Modal styles */
-.modal {
-    position: fixed;
+  .modal {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed; /* Keeps the modal fixed on the screen */
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, 0.5);
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    background-color: rgba(0, 0, 0, 0.5); /* Adds a dim background */
     z-index: 1000;
   }
   
   .modal-content {
-    background: #fff;
-    padding: 20px;
-    border-radius: 8px;
+    position: relative; /* Allows positioning of child elements, like the close button */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
     text-align: center;
-    width: 400px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
-    position: relative;
+    padding: 20px;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    max-width: 500px;
+    margin: 0 auto;
   }
   
   .modal-image {
-    width: 100%;
+    width: 100%; 
+    max-width: 300px; 
+    height: 400px; 
+    object-fit: cover;
     height: auto;
     border-radius: 8px;
     margin-bottom: 15px;
@@ -107,10 +118,12 @@ body {
   .close-button {
     position: absolute;
     top: 10px;
-    right: 10px;
-    font-size: 18px;
+    right: 10px; 
+    background-color: transparent;
+    border: none;
+    font-size: 20px;
     cursor: pointer;
-    color: #333;
+    color: #333; 
   }
   
   .add-to-cart-button {
@@ -131,4 +144,39 @@ body {
   
   .modal-content p strong {
     color: #000; 
+}
+
+/* Disable button styles */
+button:disabled {
+  background-color: #ccc;
+  color: #666;
+  cursor: not-allowed;
+}
+
+/* Success message */
+.success-message {
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #4caf50;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 5px;
+  z-index: 1000;
+  font-weight: bold;
+}
+
+.no-products-box {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 200px; 
+  background-color: #f8f8f8;
+  border-radius: 10px;
+  text-align: center;
+  font-size: 20px;
+  color: #333;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }

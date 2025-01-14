@@ -1,0 +1,11 @@
+Clothes code,Clothes Name,Size,Rent Price,Picture,Description
+C001,Evening Bloom Dress,M,25,evening-bloom-dress.jpg,A stunning dress perfect for galas and evening parties.
+C002,Urban Escape Shirt,L,20,urban-escape-shirt.jpg,A sleek shirt for a sharp, everyday look.
+C003,Trailblazer Trousers,M,30,trailblazer-trousers.jpg,Modern trousers for professional or casual wear.
+C004,Whispering Willow Blouse,S,18,whispering-willow-blouse.jpg,A delicate blouse with intricate lace details.
+C005,Horizon Voyager Jacket,L,35,horizon-voyager-jacket.jpg,A cozy jacket designed for adventures and chilly days.
+C006,Golden Hour Skirt,S,22,golden-hour-skirt.jpg,A radiant skirt to brighten any wardrobe.
+C007,Petal Drift Scarf,One Size,10,petal-drift-scarf.jpg,A soft and charming scarf for a touch of elegance.
+C008,Winter Haven Coat,XL,50,winter-haven-coat.jpg,A stylish and warm coat for brisk winter evenings.
+C009,Cloudline Sweater,M,28,cloudline-sweater.jpg,A cozy sweater ideal for relaxed outings.
+C010,Explorer's Haven Cap,One Size,12,explorers-haven-cap.jpg,A sporty cap for urban adventures and casual looks.
