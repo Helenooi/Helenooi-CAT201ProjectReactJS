@@ -7,16 +7,20 @@
   /* Hero Section */
   .hero-section {
     display: flex;
-    justify-content: space-between;
+    justify-content: wrap;
     align-items: center;
     background-color: #b6c4ba;
-    padding: 40px;
+    padding: 20px;
     border-radius: 12px;
+    box-sizing: border-box;
     margin-bottom: 40px;
   }
   
   .hero-content {
+    flex: 1;
     max-width: 50%;
+    padding: 10px;
+    box-sizing: border-box;
   }
   
   .hero-title {
@@ -48,21 +52,82 @@
   }
   
   /* Hero Image */
-  .hero-image {
-    max-width: 50%;
+  .hero-images {
+    flex: 1;
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    flex-wrap: wrap; /* Ensures images wrap on smaller screens */
+    max-width: 70%;
+    padding: 10px;
+    box-sizing: border-box;
   }
   
-  .animated-image {
-    width: 50%;
-    animation: easeInOut 2s infinite;
+  .hero-images img {
+    width: 100%;
+    max-width: 200px; /* Restricts max width of images */
+    height: auto;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transform-origin: center;
   }
+
+  .hero-images img:hover {
+    transform: scale(1.05);
+    transition: transform 0.3s ease-in-out;
+  }  
   
-  @keyframes easeInOut {
-    0%, 100% {
-      transform: scale(1);
+  /* Animation */
+  .left-image {
+    animation: fadeInSlideLeft 1.5s ease-in-out;
+    animation-delay: 0.3s;
+  }
+
+  
+  .right-image {
+    animation: fadeInSlideRight 1.5s ease-in-out;
+    animation-delay: 0.4s;
+  }  
+
+  @keyframes fadeInSlideLeft {
+    from {
+      transform: translateX(100%);
+      opacity: 0;
     }
-    50% {
-      transform: scale(1.05);
+    to {
+      transform: translateX(0);
+      opacity: 1;
+    }
+  }
+  @keyframes fadeInSlideRight {
+    from {
+      transform: translateX(100%);
+      opacity: 0;
+    }
+    to {
+      transform: translateX(0);
+      opacity: 1;
+    }
+  }
+  
+  
+  /* Media Queries for Responsiveness */
+  @media (max-width: 768px) {
+    .hero-section {
+      flex-direction: column; /* Stacks content vertically */
+      text-align: center;
+    }
+  
+    .hero-content {
+      max-width: 100%; /* Expands to full width */
+    }
+  
+    .hero-images {
+      max-width: 100%; /* Expands to full width */
+    }
+  
+    .hero-images img {
+      max-width: 150px; /* Smaller images for mobile */
     }
   }
   

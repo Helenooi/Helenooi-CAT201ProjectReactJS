@@ -12,24 +12,24 @@ const UserMainPage = () => {
 
   const menuOptions = [
     { label: "View Products", icon: "/iconviewproduct.png", link: "/products" },
-    { label: "Cart", icon: "/iconcart.png", link: "/cart" },
-    { label: "Payment", icon: "/iconpayment.png", link: "/payment" },
+    { label: "Cart", icon: "/211707_cart_icon.png", link: "/cart" },
+    { label: "My Orders", icon: "/iconmyorder.png", link: "/payment" },
     { label: "User Profile", icon: "/iconuserprofile.png", link: "/profile" },
   ];
 
   const bestSellers = [
     {
       name: "Elegant Evening Gown",
-      description: "A stunning gown for formal events. Available in multiple sizes.",
+      description: "A stunning gown for formal events.",
       image: "/DRESS6.jpg",
     },
     {
-      name: "Prom Dress",
-      description: "Suitable for graduation and prom event. Tailored to perfection.",
+      name: "Butterfly Gardenia Lace Dress",
+      description: "Suitable for graduation day and beach party. Tailored to perfection.",
       image: "/promdress1.jpg",
     },
     {
-      name: "Wedding Dress",
+      name: "Classic White Wedding Dress",
       description: "Perfect for your wedding day.",
       image: "/weddingdress1.jpg",
     },
@@ -44,15 +44,24 @@ const UserMainPage = () => {
       <div className="page-content">
         <div className="hero-section">
           <div className="hero-content">
-            <h1 className="hero-title">WELCOME TO TRENDY RENTALS</h1>
+            <h1 className="hero-title">WELCOME TO TRENDY RENTALS!</h1>
             <p className="hero-description">
               Your go-to destination for affordable and stylish clothing rentals!
             </p>
             <button className="cta-button">Explore Now</button>
           </div>
-          <div className="hero-image">
-            <img src="/dress5.jpg" alt="Fashion Collection" className="animated-image" />
-          </div>
+          <div className="hero-images">
+    <img
+      src="/dress5.jpg"
+      alt="Fashion Collection 1"
+      className="animated-image left-image"
+    />
+    <img
+      src="/promdress1.jpg"
+      alt="Fashion Collection 2"
+      className="animated-image right-image"
+    />
+     </div>
         </div>
 
         <div className="menu">
