@@ -1,4 +1,3 @@
-
 import com.sun.net.httpserver.HttpServer;
 import com.sun.net.httpserver.HttpHandler;
 import com.sun.net.httpserver.HttpExchange;
@@ -49,12 +48,16 @@ public class AddProductServer {
                 String picturePath = parts[3];
                 String description = parts[4];
 
-                // Define file path;;;;;;
-                File csvFile = new File("data/products.csv");
+                // Define file path
+                File csvFile = new File("public/product.csv");
 
                 // Create file if it doesn't exist
                 boolean isNewFile = false;
                 if (!csvFile.exists()) {
+                    File parentDir = csvFile.getParentFile();
+                    if (parentDir != null && !parentDir.exists()) {
+                        parentDir.mkdirs();
+                    }
                     isNewFile = csvFile.createNewFile();
                 }
 
