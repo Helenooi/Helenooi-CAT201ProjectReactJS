@@ -8,9 +8,10 @@ import './addproduct.css';
 
 const AddProductPage = () => {
   const [formData, setFormData] = useState({
+  //  clothescode: '',  // Added clothescode state
     clothesname: '',
     size: '',
-    retailprice: '',
+    rentprice: '',  // Changed to rentprice
     picture: '',
     description: '',
   });
@@ -28,8 +29,8 @@ const AddProductPage = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Construct data as a plain string or an object
-    const dataString = `${formData.clothesname},${formData.size},${formData.retailprice},${formData.picture},${formData.description}`;
+    // Construct data string to include rentprice as the field
+    const dataString = `${formData.clothesname},${formData.size},${formData.rentprice},${formData.picture},${formData.description}`;
 
     try {
         const response = await fetch('http://localhost:8080/add-product', {
@@ -48,9 +49,10 @@ const AddProductPage = () => {
 
         alert('Product added successfully!');
         setFormData({
+          //  clothescode: '',
             clothesname: '',
             size: '',
-            retailprice: '',
+            rentprice: '',  // Reset rentprice
             picture: '',
             description: '',
         });
@@ -60,10 +62,9 @@ const AddProductPage = () => {
     }
 };
 
-
   return (
     <div>
-      <NavBar role="admin" /> {/* Adjust 'role' as necessary */}
+      <NavBar role="admin" />
       <br />
       <br /> <br /> <br />
       <main>
@@ -74,6 +75,8 @@ const AddProductPage = () => {
         <section className="hero container">
           <form className="hero__form" id="addProductForm" onSubmit={handleSubmit}>
             <p className="hero__msg" id="message"></p>
+          
+            
             <p className="hero__subtitle">Clothes name:</p>
             <input
               className="hero__input"
@@ -84,6 +87,7 @@ const AddProductPage = () => {
               placeholder="Enter clothes name"
               required
             />
+            
             <p className="hero__subtitle">Size:</p>
             <input
               className="hero__input"
@@ -94,16 +98,18 @@ const AddProductPage = () => {
               placeholder="Enter the size"
               required
             />
-            <p className="hero__subtitle">Retail Price:</p>
+            
+            <p className="hero__subtitle">Rent Price:</p>
             <input
               className="hero__input"
               type="number"
-              name="retailprice"
-              value={formData.retailprice}
+              name="rentprice" 
+              value={formData.rentprice}  
               onChange={handleChange}
-              placeholder="Enter retail price"
+              placeholder="Enter rent price"  
               required
             />
+            
             <p className="hero__subtitle">Picture:</p>
             <input
               className="hero__input"
@@ -112,6 +118,7 @@ const AddProductPage = () => {
               onChange={handleFileChange}
               accept="image/*"
             />
+            
             <p className="hero__subtitle">Description:</p>
             <textarea
               className="hero__textarea"
@@ -121,6 +128,7 @@ const AddProductPage = () => {
               placeholder="Enter description"
               required
             ></textarea>
+            
             <button className="hero__button" type="submit">Add Product</button>
           </form>
         </section>

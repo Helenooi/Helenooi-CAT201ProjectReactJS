@@ -107,14 +107,14 @@ public class BackendJava {
 
                 // Parse data (assuming it's sent as plain text)
                 String[] parts = body.split(",");
-                if (parts.length != 5) {
+                if (parts.length != 6) { // Expecting 6 parts (clothescode, clothesname, size, rentprice, picture, description)
                     exchange.sendResponseHeaders(400, -1); // Bad Request
                     return;
                 }
 
                 String clothesName = parts[0];
                 String size = parts[1];
-                String retailPrice = parts[2];
+                String rentPrice = parts[2];  // Changed from retailPrice to rentPrice
                 String picturePath = parts[3];
                 String description = parts[4];
 
@@ -131,9 +131,9 @@ public class BackendJava {
                 try (BufferedWriter writer = new BufferedWriter(new FileWriter(csvFile, true))) {
                     // Write headers if it's a new file
                     if (isNewFile) {
-                        writer.write("Clothes Name,Size,Retail Price,Picture,Description\n");
+                        writer.write("Clothes Name,Size,Rent Price,Picture,Description\n");
                     }
-                    writer.write(clothesName + "," + size + "," + retailPrice + "," + picturePath + "," + description + "\n");
+                    writer.write(clothesName + "," + size + "," + rentPrice + "," + picturePath + "," + description + "\n");
                 }
 
                 // Send response
