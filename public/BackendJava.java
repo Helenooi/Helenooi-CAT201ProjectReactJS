@@ -83,6 +83,7 @@ public class BackendJava {
         }
     }
 
+
     static class AddProductHandler implements HttpHandler {
         @Override
         public void handle(HttpExchange exchange) throws IOException {
@@ -95,66 +96,74 @@ public class BackendJava {
     
             // Handle OPTIONS method for preflight requests
             if ("OPTIONS".equalsIgnoreCase(exchange.getRequestMethod())) {
-                exchange.sendResponseHeaders(204, -1); // No content for OPTIONS
+                exchange.sendResponseHeaders(204, -1);
                 return;
             }
     
             if ("POST".equalsIgnoreCase(exchange.getRequestMethod())) {
-                InputStream inputStream = exchange.getRequestBody();
-                String body = new String(inputStream.readAllBytes(), StandardCharsets.UTF_8);
+                try {
+                    InputStream inputStream = exchange.getRequestBody();
+                    String body = new String(inputStream.readAllBytes(), StandardCharsets.UTF_8);
     
-                // Parse data (assuming it's sent as plain text)
-                String[] parts = body.split(",");
-                if (parts.length != 5) {
-                    exchange.sendResponseHeaders(400, -1); // Bad Request
-                    return;
-                }
-    
-                String clothesName = parts[0];
-                String size = parts[1];
-                String retailPrice = parts[2];
-                String picturePath = parts[3];
-                String description = parts[4];
-    
-                // Debug: Print the current working directory to check where the program is running from
-                String projectRoot = System.getProperty("user.dir"); // Get the current working directory
-                System.out.println("Current working directory: " + projectRoot);
-    
-                // Explicitly set the absolute path to the 'public' directory, relative to project root
-                String filePath = projectRoot + File.separator + "public" + File.separator + "product.csv"; // Ensure path is correct
-    
-                // Print out the resolved file path for debugging
-                System.out.println("File path to product.csv: " + filePath);
-    
-                // Create the file if it doesn't exist
-                File csvFile = new File(filePath);
-                boolean isNewFile = false;
-                if (!csvFile.exists()) {
-                    File parentDir = csvFile.getParentFile();
-                    if (parentDir != null && !parentDir.exists()) {
-                        parentDir.mkdirs();
+                    // Parse data (expecting 6 fields now)
+                    String[] parts = body.split(",");
+                    if (parts.length != 6) {
+                        String errorResponse = "Invalid number of fields. Expected 6 fields.";
+                        exchange.sendResponseHeaders(400, errorResponse.length());
+                        try (OutputStream os = exchange.getResponseBody()) {
+                            os.write(errorResponse.getBytes());
+                        }
+                        return;
                     }
-                    isNewFile = csvFile.createNewFile();
-                }
     
-                // Append to the CSV file
-                try (BufferedWriter writer = new BufferedWriter(new FileWriter(csvFile, true))) {
-                    if (isNewFile) {
-                        writer.write("Clothes Name,Size,Retail Price,Picture,Description\n");
+                    // Match the order from frontend
+                    String clothesCode = parts[0];
+                    String clothesName = parts[1];
+                    String size = parts[2];
+                    String rentPrice = parts[3];
+                    String picturePath = parts[4];
+                    String description = parts[5];
+    
+                    String projectRoot = System.getProperty("user.dir");
+                    String filePath = projectRoot + File.separator + "public" + File.separator + "product.csv";
+    
+                    // Create the file if it doesn't exist
+                    File csvFile = new File(filePath);
+                    boolean isNewFile = false;
+                    if (!csvFile.exists()) {
+                        File parentDir = csvFile.getParentFile();
+                        if (parentDir != null && !parentDir.exists()) {
+                            parentDir.mkdirs();
+                        }
+                        isNewFile = csvFile.createNewFile();
                     }
-                    writer.write(clothesName + "," + size + "," + retailPrice + "," + picturePath + "," + description + "\n");
-                }
     
-                // Send response
-                String response = "Product added successfully!";
-                exchange.sendResponseHeaders(200, response.length());
-                OutputStream outputStream = exchange.getResponseBody();
-                outputStream.write(response.getBytes());
-                outputStream.close();
+                    // Append to the CSV file
+                    try (BufferedWriter writer = new BufferedWriter(new FileWriter(csvFile, true))) {
+                        if (isNewFile) {
+                            writer.write("Clothes Code,Clothes Name,Size,Rent Price,Picture,Description\n");
+                        }
+                        writer.write(String.format("%s,%s,%s,%s,%s,%s\n",
+                            clothesCode, clothesName, size, rentPrice, picturePath, description));
+                    }
+    
+                    // Send success response
+                    String response = "Product added successfully!";
+                    exchange.sendResponseHeaders(200, response.length());
+                    try (OutputStream os = exchange.getResponseBody()) {
+                        os.write(response.getBytes());
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    String errorResponse = "Internal server error: " + e.getMessage();
+                    exchange.sendResponseHeaders(500, errorResponse.length());
+                    try (OutputStream os = exchange.getResponseBody()) {
+                        os.write(errorResponse.getBytes());
+                    }
+                }
             } else {
                 exchange.sendResponseHeaders(405, -1); // Method Not Allowed
             }
         }
-    }
-
+    } 
 }
