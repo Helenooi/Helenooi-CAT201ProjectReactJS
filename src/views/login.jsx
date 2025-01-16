@@ -11,6 +11,7 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const [loading, setLoading] = useState(false);
+  const [passwordVisible, setPasswordVisible] = useState(false); // State to control password visibility
   const navigate = useNavigate();
 
   const handleLogin = async () => {
@@ -18,10 +19,10 @@ const Login = () => {
       setErrorMessage("Username and Password cannot be empty.");
       return;
     }
-  
+
     setLoading(true);
     setErrorMessage("");
-  
+
     try {
       const response = await fetch("http://localhost:8080/api/login", {
         method: "POST",
@@ -33,13 +34,13 @@ const Login = () => {
           password: password.trim(),
         }),
       });
-  
+
       const result = await response.json();
-  
+
       if (result.status === "success") {
         localStorage.setItem("username", result.username);
         localStorage.setItem("role", result.role);
-  
+
         navigate(result.role === "admin" ? "/adminpage" : "/userpage");
       } else {
         setErrorMessage(result.message || "Invalid username or password.");
@@ -50,19 +51,14 @@ const Login = () => {
       setLoading(false);
     }
   };
-  
 
   return (
     <>
       <NavBar />
       <main>
-      <br />
-      <br /> <br /> <br />
-     
+        <br />
+        <br /> <br /> <br />
         <section className="hero container">
-
-      
-       
           <form
             className="hero__form"
             onSubmit={(e) => {
@@ -70,10 +66,7 @@ const Login = () => {
               handleLogin();
             }}
           >
-
-<h1 className="hero__title">   <i className="fas fa-user-circle"></i> Login</h1>
-
-
+            <h1 className="hero__title"> <i className="fas fa-user-circle"></i> Login</h1>
 
             {errorMessage && <p className="hero__error">{errorMessage}</p>}
 
@@ -87,13 +80,23 @@ const Login = () => {
             />
 
             <p className="hero__subtitle">Password:</p>
-            <input
-              className="hero__input"
-              type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              placeholder="Password"
-            />
+            <div className="password-container">
+              <input
+                className="hero__input"
+                type={passwordVisible ? "text" : "password"} // Toggle between text and password
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                placeholder="Password"
+              />
+              <button
+                type="button"
+                className="password-toggle"
+                onClick={() => setPasswordVisible(!passwordVisible)} // Toggle password visibility
+              >
+                <i className={`fas ${passwordVisible ? "fa-eye-slash" : "fa-eye"}`}></i> {/* Change icon based on visibility */}
+              </button>
+            </div>
+
             <button className="btn2 hero__login" type="submit" disabled={loading}>
               {loading ? "Logging in..." : "LOGIN"}
             </button>
