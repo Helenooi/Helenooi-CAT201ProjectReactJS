@@ -13,7 +13,7 @@ const App = () => {
 
   useEffect(() => {
     // Fetch and parse the CSV file
-    Papa.parse('./public/product.csv', {
+    Papa.parse('/product.csv', {
       download: true,
       header: true,
       complete: (result) => {
