@@ -20,6 +20,8 @@ public class BackendJava {
         server.createContext("/api/login", new LoginHandler());
         server.createContext("/add-product", new AddProductHandler());
         server.createContext("/api/signup", new SignupHandler());
+        server.createContext("/api/saveOrder", new CheckoutHandler());
+
 
         // Start the server
         server.setExecutor(null); // Use the default executor
@@ -218,7 +220,7 @@ public class BackendJava {
                 String username = generateUsername(firstname, lastname);
     
                 // Hash the password
-                String hashedPassword = hashPassword(password);
+                String hashedPassword = password;
     
                 // Save to CSV file
                 String projectRoot = System.getProperty("user.dir");
@@ -264,16 +266,111 @@ public class BackendJava {
             return baseUsername + randomNumber;
         }
     
-        // Hash password using SHA-256
-        private String hashPassword(String password) {
-            try {
-                MessageDigest digest = MessageDigest.getInstance("SHA-256");
-                byte[] encodedHash = digest.digest(password.getBytes(StandardCharsets.UTF_8));
-                return Base64.getEncoder().encodeToString(encodedHash);
-            } catch (NoSuchAlgorithmException e) {
-                throw new RuntimeException("Error hashing password", e);
+     
+    }
+    
+
+    /////
+ 
+    /// 
+
+    static class CheckoutHandler implements HttpHandler {
+        @Override
+        public void handle(HttpExchange exchange) throws IOException {
+            // Add CORS headers
+            Headers headers = exchange.getResponseHeaders();
+            headers.add("Access-Control-Allow-Origin", "*");
+            headers.add("Access-Control-Allow-Methods", "POST, OPTIONS");
+            headers.add("Access-Control-Allow-Headers", "Content-Type");
+
+            // Handle OPTIONS method for preflight requests
+            if ("OPTIONS".equalsIgnoreCase(exchange.getRequestMethod())) {
+                exchange.sendResponseHeaders(204, -1); // No content for OPTIONS
+                return;
+            }
+
+            // Handle only POST requests for checkout
+            if ("POST".equalsIgnoreCase(exchange.getRequestMethod())) {
+                String cartData = readRequestBody(exchange);
+                if (cartData != null) {
+                    System.out.println("Received Cart Data: " + cartData);
+
+                    // Process cart data here (e.g., save to a CSV)
+                    String response = saveCartDataToCsv(cartData);
+
+                    // Send response back to the client
+                    sendResponse(exchange, response, 200); // Send success response
+                } else {
+                    sendResponse(exchange, "No cart data received", 400); // Bad Request
+                }
+            } else {
+                sendResponse(exchange, "Method Not Allowed", 405); // Method Not Allowed
+            }
+        }
+
+        // Function to read the request body (cart data)
+        private String readRequestBody(HttpExchange exchange) throws IOException {
+            InputStream inputStream = exchange.getRequestBody();
+            return new String(inputStream.readAllBytes(), StandardCharsets.UTF_8);
+        }
+
+        // Function to save the cart data to a CSV file
+        private String saveCartDataToCsv(String cartData) {
+            String filePath = "orderrecord.csv";
+            StringBuilder response = new StringBuilder();
+
+            // Example: Save cart data to CSV (adapt the following as per your actual data)
+            try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath, true))) {
+                // Check if the file is empty and write headers if necessary
+                File file = new File(filePath);
+                if (file.length() == 0) {
+                    writer.write("Email,Clothes Code,Clothes Name,Size,Price\n");
+                }
+
+                // Example: Parse and write the cart data
+                String[] cartItems = cartData.substring(1, cartData.length() - 1).split("\\},\\{");
+                for (String item : cartItems) {
+                    // Manually extract values from the cart item (adapt as needed)
+                    String email = extractValue(item, "\"email\""); // assuming email is passed as part of the data
+                    String clothesCode = extractValue(item, "\"Clothes Code\"");
+                    String clothesName = extractValue(item, "\"Clothes Name\"");
+                    String size = extractValue(item, "\"Size\"");
+                    String rentPrice = extractValue(item, "\"Rent Price\"");
+
+                    writer.write(String.format("%s,%s,%s,%s,%s\n", email, clothesCode, clothesName, size, rentPrice));
+                }
+
+                response.append("Checkout data received and saved successfully!");
+            } catch (IOException e) {
+                e.printStackTrace();
+                response.append("Error saving data to CSV: ").append(e.getMessage());
+            }
+
+            return response.toString();
+        }
+
+        // Helper function to extract the value for a given key
+        private String extractValue(String item, String key) {
+            String value = "";
+            String searchKey = key + "\":\"";
+            int startIdx = item.indexOf(searchKey);
+
+            if (startIdx != -1) {
+                startIdx += searchKey.length();
+                int endIdx = item.indexOf("\"", startIdx);
+                if (endIdx != -1) {
+                    value = item.substring(startIdx, endIdx);
+                }
+            }
+            return value;
+        }
+
+        // Function to send a response back to the client
+        private void sendResponse(HttpExchange exchange, String response, int statusCode) throws IOException {
+            exchange.sendResponseHeaders(statusCode, response.getBytes().length);
+            try (OutputStream os = exchange.getResponseBody()) {
+                os.write(response.getBytes());
             }
         }
     }
-    
 }

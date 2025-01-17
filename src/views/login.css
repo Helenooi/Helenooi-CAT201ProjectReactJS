@@ -53,6 +53,9 @@
     transition: background-color 0.3s, transform 0.2s;
 }
 
+.right{
+    float: right;
+}
 .hero__login:hover {
     background-color: #0056b3;
     transform: scale(1.03);
@@ -65,7 +68,7 @@
 .hero__error {
     border: none;
     border-radius: 15rem;
-    background-color: whitesmoke;
+    background-color: rgb(215, 34, 34);
     width: 14rem;
     padding: var(--size-xxs);
     margin: 1rem auto;
