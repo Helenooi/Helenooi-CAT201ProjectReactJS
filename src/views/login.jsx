@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom"; // Import Link
 import NavBar from "./nabvar"; // Assuming a proper NavBar component
 import Footer from "./footer"; // Assuming a proper Footer component
 import './login.css';
@@ -103,6 +103,11 @@ const Login = () => {
               {loading ? "Logging in..." : "LOGIN"}
             </button>
           </form>
+
+          
+          <div className="signup-link">
+            <p>No have an account? <Link className="link" to="/signup">Sign up here</Link></p>
+          </div>
         </section>
       </main>
       <Footer />

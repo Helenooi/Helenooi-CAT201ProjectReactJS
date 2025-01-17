@@ -53,6 +53,9 @@
     transition: background-color 0.3s, transform 0.2s;
 }
 
+.link{
+    color: black;
+}
 .right{
     float: right;
 }

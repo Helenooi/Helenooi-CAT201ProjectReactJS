@@ -5,6 +5,7 @@ import Footer from "./footer"; // Assuming a proper Footer component
 import './login.css';
 import './utils.css';
 import './adminForm.css';
+import { Link } from "react-router-dom";
 
 const Signup = () => {
   const [firstname, setFirstname] = useState("");
@@ -152,7 +153,11 @@ const Signup = () => {
               {loading ? "Signing up..." : "SIGNUP"}
             </button>
           </form>
+          <div className="signup-link">
+                    <p>Already have an account? <Link className="link" to="/login">Login here</Link></p>
+                  </div>
         </section>
+    
       </main>
       <Footer />
     </>

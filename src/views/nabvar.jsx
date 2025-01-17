@@ -12,8 +12,7 @@ const NavBar = ({ role }) => {
         <>
           <span className="navbar-link">VIEW PRODUCT</span>
           <span className="navbar-link">MY ORDERS</span> 
-          <Link to ="/signup"><span className="navbar-link">Sign Up</span>
-          </Link>
+
         </>
       );
     }
@@ -119,7 +118,7 @@ const NavBar = ({ role }) => {
               </div>
               <div className="home-middle2">
                 <div className="home-right1">{renderLinks()}</div>
-                <a href="/login" className="navbar-login-mobile">Login</a>
+                <Logout/>
               </div>
             </div>
             <div className="home-social-icons">
