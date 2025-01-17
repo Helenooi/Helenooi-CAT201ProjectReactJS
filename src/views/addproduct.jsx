@@ -9,10 +9,10 @@ import './addproduct.css';
 
 const AddProductPage = () => {
   const [formData, setFormData] = useState({
-    clothescode: '',  
+    clothescode: '',
     clothesname: '',
     size: '',
-    rentprice: '',  
+    rentprice: '',
     picture: '',
     description: '',
   });
@@ -22,7 +22,7 @@ const AddProductPage = () => {
   useEffect(() => {
     const role = localStorage.getItem('role');
     if (!role || role !== 'admin') {
-      navigate('/login');  
+      navigate('/login');
     }
   }, [navigate]);
 
@@ -42,34 +42,34 @@ const AddProductPage = () => {
     const dataString = `${formData.clothescode},${formData.clothesname},${formData.size},${formData.rentprice},${formData.picture},${formData.description}`;
 
     try {
-        const response = await fetch('http://localhost:8080/add-product', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'text/plain',
-            },
-            body: dataString,
-        });
+      const response = await fetch('http://localhost:8080/add-product', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'text/plain',
+        },
+        body: dataString,
+      });
 
-        if (!response.ok) {
-            console.error('Server error:', response.statusText);
-            alert('Failed to add product');
-            return;
-        }
+      if (!response.ok) {
+        console.error('Server error:', response.statusText);
+        alert('Failed to add product');
+        return;
+      }
 
-        alert('Product added successfully!');
-        setFormData({
-            clothescode: '',
-            clothesname: '',
-            size: '',
-            rentprice: '',
-            picture: '',
-            description: '',
-        });
+      alert('Product added successfully!');
+      setFormData({
+        clothescode: '',
+        clothesname: '',
+        size: '',
+        rentprice: '',
+        picture: '',
+        description: '',
+      });
     } catch (error) {
-        console.error('Fetch error:', error);
-        alert('An error occurred');
+      console.error('Fetch error:', error);
+      alert('An error occurred');
     }
-};
+  };
 
   return (
     <div>
@@ -84,8 +84,8 @@ const AddProductPage = () => {
         <section className="hero container">
           <form className="hero__form" id="addProductForm" onSubmit={handleSubmit}>
             <p className="hero__msg" id="message"></p>
-          
-            <p className="hero__subtitle">Clothes code:</p>
+
+            <p className="hero__subtitle">Clothes Code:</p>
             <input
               className="hero__input"
               type="text"
@@ -96,7 +96,7 @@ const AddProductPage = () => {
               required
             />
 
-            <p className="hero__subtitle">Clothes name:</p>
+            <p className="hero__subtitle">Clothes Name:</p>
             <input
               className="hero__input"
               type="text"
@@ -106,7 +106,7 @@ const AddProductPage = () => {
               placeholder="Enter clothes name"
               required
             />
-            
+
             <p className="hero__subtitle">Size:</p>
             <input
               className="hero__input"
@@ -117,18 +117,18 @@ const AddProductPage = () => {
               placeholder="Enter the size"
               required
             />
-            
+
             <p className="hero__subtitle">Rent Price:</p>
             <input
               className="hero__input"
               type="number"
-              name="rentprice" 
-              value={formData.rentprice}  
+              name="rentprice"
+              value={formData.rentprice}
               onChange={handleChange}
-              placeholder="Enter rent price"  
+              placeholder="Enter rent price"
               required
             />
-            
+
             <p className="hero__subtitle">Picture:</p>
             <input
               className="hero__input"
@@ -137,18 +137,18 @@ const AddProductPage = () => {
               onChange={handleFileChange}
               accept="image/*"
             />
-            
+
             <p className="hero__subtitle">Description:</p>
-            <textarea
-              className="hero__textarea"
+            <input
+              className="hero__input"
               name="description"
               value={formData.description}
               onChange={handleChange}
               placeholder="Enter description"
               required
-            ></textarea>
-            
-            <button className="hero__button" type="submit">Add Product</button>
+            ></input>
+
+            <button className="btn2 hero__login" type="submit">Add Product</button>
           </form>
         </section>
       </main>

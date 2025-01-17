@@ -4,48 +4,62 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    gap: 1rem;
+    gap: 1.5rem;
     margin-top: 2rem;
 }
 
-.hero__img {
-    width: auto;
-    height: var(--size-6xl);
-}
-
 .hero__form {
-    border: none;
-    border-radius: 3rem;
-    width: auto;
-    height: auto;
-    padding: 3rem var(--size-3xl);
-    margin-bottom: 2rem;
-    background-color: rgba(228, 165, 197, 0.5);
+    border: 1px solid #ccc;
+    border-radius: 1rem;
+    padding: 2.5rem 3rem;
+    background-color: #f9f9f9;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    max-width: 440px;
+    width: 100%;
 }
 
 .hero__title {
-    color: var(--clr-slate800);
+    color: #333;
+    font-size: 1.5rem;
+    font-weight: 700;
     text-transform: uppercase;
-    font-size: var(--size-xl);
-    /*letter-spacing: -0.05em;*/
-    line-height: 0.9;
-    /*margin-bottom: var(--size-3xl);*/
-    margin-bottom: 5px;
+    margin-bottom: 1rem;
 }
 
 .hero__input {
-    border: 2px solid var(--clr-slate400);
-    border-radius: 15rem;
-    width: 14rem;
-    /*margin: var(--size-sm);*/
-    padding: var(--size-xs);
-    font-weight: 600;
+    border: 1px solid #ddd;
+    border-radius: 0.5rem;
+    width: 100%;
+    padding: 0.75rem;
+    font-size: 1rem;
+    margin-bottom: 1rem;
+    transition: border-color 0.3s;
+}
+
+.hero__input:focus {
+    border-color: #007bff;
+    outline: none;
 }
 
 .hero__login {
-    width: 14rem;
-    margin-top: 1rem;
-    padding: var(--size-xs);
+    width: 100%;
+    padding: 0.75rem;
+    font-size: 1rem;
+    font-weight: 600;
+    color: #fff;
+    border: none;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+.hero__login:hover {
+    background-color: #0056b3;
+    transform: scale(1.03);
+}
+
+.hero__login:active {
+    background-color: #003f7f;
 }
 
 .hero__error {
@@ -56,24 +70,41 @@
     padding: var(--size-xxs);
     margin: 1rem auto;
     /* color: white; */
-    color: red;
+    color: white;
     font-weight: 600;
 }
 
-/* xs */
+/* Responsive adjustments */
 @media (min-width: 475px) {
     .hero {
-        gap: 1.5rem;
-    }
-
-    .hero__img {
-        width: auto;
-        height: var(--size-7xl);
+        gap: 2rem;
     }
 
     .hero__title {
-        font-size: var(--size-3xl);
+        font-size: 2rem;
     }
+}
+
+.hero__login {
+    width: 100%;
+    padding: 0.75rem;
+    font-size: 1rem;
+    font-weight: 600;
+    background-color: #007bff !important; /* Ensures the blue color overrides any inherited styles */
+    color: #fff !important; /* Ensures white text */
+    border: none;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+.hero__login:hover {
+    background-color: #0056b3; /* Darker blue on hover */
+    transform: scale(1.03);
+}
+
+.hero__login:active {
+    background-color: #003f7f;
 }
 
 /* sm */

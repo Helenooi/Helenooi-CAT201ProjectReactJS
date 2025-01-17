@@ -1,39 +1,19 @@
-/* xs */
-/* @media (min-width: 475px) {} */
-
-/* sm */
-/* @media (min-width: 640px) {} */
-
-/* md */
-/* @media (min-width: 768px) {} */
-
-/* lg */
-/* @media (min-width: 1024px) {} */
-
-/* xl */
-/* @media (min-width: 1280px) {} */
-
-/* 2xl */
-/* @media (min-width: 1536px) {} */
-
 .btn {
     display: inline-block;
     font-weight: 600;
     text-decoration: none;
     letter-spacing: -0.05em;
-    background-color: var(--clr-maroon);
-    color: var(--clr-light);
-    padding: 0.5em 1em;
+    background-color: #007bff; /* Professional blue color */
+    color: #ffffff; /* White text */
+    padding: 0.75em 1.5em;
     border-radius: 6px;
-    box-shadow: 0 2px 5px rgb(232, 27, 132, 0.5), 0 6px 6px
-    rgb(232, 27, 132, 0.5), 0 0 100px -10px var(--clr-maroon);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2), 0 6px 6px rgba(0, 0, 0, 0.15); /* Neutral shadow */
     transition: transform 0.3s, box-shadow 0.3s;
 }
 
 .btn:hover {
     transform: translateY(-3px);
-    box-shadow: 0 6px 13px rgb(232, 27, 132, 0.25), 0 10px 10px
-    rgb(232, 27, 132, 0.22), 0 0 120px -10px var(--clr-maroon);
+    box-shadow: 0 6px 13px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22); /* Darker shadow on hover */
 }
 
 .btn2 {
@@ -41,19 +21,17 @@
     font-weight: 600;
     text-decoration: none;
     letter-spacing: -0.05em;
-    background-color: var(--clr-maroon);
-    color: var(--clr-light);
-    /* padding: 0.5em 1em; */
+    background-color: #28a745; /* Green for an alternative button style */
+    color: #ffffff; /* White text */
+    padding: 0.75em 1.5em;
     border-radius: 20px;
-    box-shadow: 0 2px 5px rgb(232, 27, 132, 0.5), 0 3px 6px
-    rgb(232, 27, 132, 0.5), 0 0 100px -10px var(--clr-maroon);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2), 0 3px 6px rgba(0, 0, 0, 0.15); /* Neutral shadow */
     transition: transform 0.3s, box-shadow 0.3s;
 }
 
 .btn2:hover {
     transform: translateY(-3px);
-    box-shadow: 0 6px 13px rgb(232, 27, 132, 0.25), 0 10px 10px
-    rgb(232, 27, 132, 0.22), 0 0 120px -10px var(--clr-maroon);
+    box-shadow: 0 6px 13px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22); /* Darker shadow on hover */
 }
 
 .container {

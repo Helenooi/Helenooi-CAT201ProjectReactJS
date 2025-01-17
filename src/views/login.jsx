@@ -9,9 +9,9 @@ import './adminForm.css';
 const Login = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [passwordVisible, setPasswordVisible] = useState(false); // State to control password visibility
   const [errorMessage, setErrorMessage] = useState("");
   const [loading, setLoading] = useState(false);
-  const [passwordVisible, setPasswordVisible] = useState(false); // State to control password visibility
   const navigate = useNavigate();
 
   const handleLogin = async () => {
@@ -66,7 +66,9 @@ const Login = () => {
               handleLogin();
             }}
           >
-            <h1 className="hero__title"> <i className="fas fa-user-circle"></i> Login</h1>
+            <h1 className="hero__title">
+              <i className="fas fa-user-circle"></i> Login
+            </h1>
 
             {errorMessage && <p className="hero__error">{errorMessage}</p>}
 
