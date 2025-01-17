@@ -11,7 +11,9 @@ const NavBar = ({ role }) => {
       return (
         <>
           <span className="navbar-link">VIEW PRODUCT</span>
-          <span className="navbar-link">MY ORDERS</span>
+          <span className="navbar-link">MY ORDERS</span> 
+          <Link to ="/signup"><span className="navbar-link">Sign Up</span>
+          </Link>
         </>
       );
     }

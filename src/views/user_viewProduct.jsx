@@ -59,23 +59,25 @@ const App = () => {
           products.map((product, index) => {
             const isAddedToCart = cart.some((item) => item['Clothes Name'] === product['Clothes Name']);
             return (
-              <div key={index} className="rental-card">
-                <img
-                  src={`/${product.Picture}`}
-                  alt={product['Clothes Name']}
-                  className="rental-image"
-                />
-                <h3 className="rental-title">{product['Clothes Name']}</h3>
-                <p className="rental-description">{product.Description}</p>
-                <p className="rental-price">${product['Rent Price']}</p>
-                <button
-                  className="rent-button"
-                  onClick={() => setSelectedProduct(product)}
-                  disabled={isAddedToCart}
-                >
-                  {isAddedToCart ? "Added to Cart" : "Rent Now"}
-                </button>
-              </div>
+              <div className="rental-card">
+              <img
+                src={`/${product.Picture}`}
+                alt={product['Clothes Name']}
+                className="rental-image"
+              />
+              <h3 className="rental-title">{product['Clothes Name']}</h3>
+              {/*<p className="rental-code"><strong>Code:</strong> {product['Clothes Code']}</p> */}
+              <p className="rental-description">{product.Description}</p>
+              <p className="rental-price">${product['Rent Price']}</p>
+              <button
+                className="rent-button"
+                onClick={() => setSelectedProduct(product)}
+                disabled={isAddedToCart}
+              >
+                {isAddedToCart ? "Added to Cart" : "Rent Now"}
+              </button>
+            </div>
+            
             );
           })
         )}
