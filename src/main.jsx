@@ -7,7 +7,7 @@ import UserProfilePage from "./views/userprofile"
 import Login from './views/login.jsx'; 
 import UserViewProduct from './views/user_viewProduct.jsx';
 import UserCart from './views/cart.jsx';
-
+import Signup from './views/signup.jsx';
 import './index.css';
 
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
@@ -17,6 +17,10 @@ const router = createBrowserRouter([
     path: "/",
     element: <Login />, 
   },
+  {
+    path: "/signup",
+    element: <Signup />, 
+  }, 
   {
     path: "/addproduct",
     element: <AddProductPage />, 

@@ -6,6 +6,9 @@ import com.sun.net.httpserver.Headers;
 import java.io.*;
 import java.net.InetSocketAddress;
 import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.util.Base64;
 
 public class BackendJava {
     public static void main(String[] args) throws IOException {
@@ -16,6 +19,7 @@ public class BackendJava {
         // Register endpoints
         server.createContext("/api/login", new LoginHandler());
         server.createContext("/add-product", new AddProductHandler());
+        server.createContext("/api/signup", new SignupHandler());
 
         // Start the server
         server.setExecutor(null); // Use the default executor
@@ -166,4 +170,110 @@ public class BackendJava {
             }
         }
     } 
+
+
+    static class SignupHandler implements HttpHandler {
+        @Override
+        public void handle(HttpExchange exchange) throws IOException {
+            Headers headers = exchange.getResponseHeaders();
+    
+            // Add CORS headers
+            headers.add("Access-Control-Allow-Origin", "*");
+            headers.add("Access-Control-Allow-Methods", "POST, OPTIONS");
+            headers.add("Access-Control-Allow-Headers", "Content-Type");
+    
+            // Handle OPTIONS method for preflight requests
+            if ("OPTIONS".equalsIgnoreCase(exchange.getRequestMethod())) {
+                exchange.sendResponseHeaders(204, -1); // No content for OPTIONS
+                return;
+            }
+    
+            if ("POST".equalsIgnoreCase(exchange.getRequestMethod())) {
+                InputStream is = exchange.getRequestBody();
+                String requestBody = new String(is.readAllBytes(), StandardCharsets.UTF_8);
+    
+                // Parse JSON input
+                String firstname = null;
+                String lastname = null;
+                String email = null;
+                String password = null;
+                if (requestBody.contains("\"firstname\"") && requestBody.contains("\"lastname\"") &&
+                    requestBody.contains("\"email\"") && requestBody.contains("\"password\"")) {
+                    firstname = requestBody.split("\"firstname\":\"")[1].split("\"")[0];
+                    lastname = requestBody.split("\"lastname\":\"")[1].split("\"")[0];
+                    email = requestBody.split("\"email\":\"")[1].split("\"")[0];
+                    password = requestBody.split("\"password\":\"")[1].split("\"")[0];
+                }
+    
+                if (firstname == null || lastname == null || email == null || password == null) {
+                    String errorResponse = "Missing required fields.";
+                    exchange.sendResponseHeaders(400, errorResponse.length());
+                    try (OutputStream os = exchange.getResponseBody()) {
+                        os.write(errorResponse.getBytes());
+                    }
+                    return;
+                }
+    
+                // Generate username
+                String username = generateUsername(firstname, lastname);
+    
+                // Hash the password
+                String hashedPassword = hashPassword(password);
+    
+                // Save to CSV file
+                String projectRoot = System.getProperty("user.dir");
+                String filePath = projectRoot + File.separator + "public" + File.separator + "users.csv";
+    
+                File csvFile = new File(filePath);
+                boolean isNewFile = false;
+    
+                if (!csvFile.exists()) {
+                    File parentDir = csvFile.getParentFile();
+                    if (parentDir != null && !parentDir.exists()) {
+                        parentDir.mkdirs();
+                    }
+                    isNewFile = csvFile.createNewFile();
+                }
+    
+                try (BufferedWriter writer = new BufferedWriter(new FileWriter(csvFile, true))) {
+                    if (isNewFile) {
+                        writer.write("First Name,Last Name,Email,Username,Password\n"); // Write header if new file
+                    }
+                    writer.write(String.format("%s,%s,%s,%s,%s\n", firstname, lastname, email, username, hashedPassword));
+                }
+    
+                // Send success response
+                String response = String.format("{\"status\":\"success\",\"message\":\"Signup successful\",\"username\":\"%s\"}", username);
+                exchange.sendResponseHeaders(200, response.length());
+                try (OutputStream os = exchange.getResponseBody()) {
+                    os.write(response.getBytes());
+                }
+            } else {
+                String response = "Method Not Allowed";
+                exchange.sendResponseHeaders(405, response.getBytes(StandardCharsets.UTF_8).length);
+                try (OutputStream os = exchange.getResponseBody()) {
+                    os.write(response.getBytes());
+                }
+            }
+        }
+    
+        // Generate username by combining firstname, lastname, and a random 2-digit number
+        private String generateUsername(String firstname, String lastname) {
+            String baseUsername = (firstname + lastname).toLowerCase().replaceAll("\\s+", "");
+            int randomNumber = (int) (Math.random() * 90) + 10; // Generate a random 2-digit number
+            return baseUsername + randomNumber;
+        }
+    
+        // Hash password using SHA-256
+        private String hashPassword(String password) {
+            try {
+                MessageDigest digest = MessageDigest.getInstance("SHA-256");
+                byte[] encodedHash = digest.digest(password.getBytes(StandardCharsets.UTF_8));
+                return Base64.getEncoder().encodeToString(encodedHash);
+            } catch (NoSuchAlgorithmException e) {
+                throw new RuntimeException("Error hashing password", e);
+            }
+        }
+    }
+    
 }

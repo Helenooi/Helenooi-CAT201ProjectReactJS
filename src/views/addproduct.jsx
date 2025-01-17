@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import NavBar from './nabvar';
 import Footer from './footer';
 import './utils.css';
@@ -8,13 +9,22 @@ import './addproduct.css';
 
 const AddProductPage = () => {
   const [formData, setFormData] = useState({
-    clothescode: '',  // Added clothescode state
+    clothescode: '',  
     clothesname: '',
     size: '',
-    rentprice: '',  // Changed to rentprice
+    rentprice: '',  
     picture: '',
     description: '',
   });
+
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const role = localStorage.getItem('role');
+    if (!role || role !== 'admin') {
+      navigate('/login');  
+    }
+  }, [navigate]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -26,11 +36,9 @@ const AddProductPage = () => {
     setFormData({ ...formData, picture: file ? file.name : '' });
   };
 
-
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Construct data string
     const dataString = `${formData.clothescode},${formData.clothesname},${formData.size},${formData.rentprice},${formData.picture},${formData.description}`;
 
     try {
@@ -63,7 +71,6 @@ const AddProductPage = () => {
     }
 };
 
-
   return (
     <div>
       <NavBar role="admin" />
@@ -78,7 +85,6 @@ const AddProductPage = () => {
           <form className="hero__form" id="addProductForm" onSubmit={handleSubmit}>
             <p className="hero__msg" id="message"></p>
           
-            
             <p className="hero__subtitle">Clothes code:</p>
             <input
               className="hero__input"

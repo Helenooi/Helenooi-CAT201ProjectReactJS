@@ -1,4 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+
 import NavBar from "./nabvar";
 import Footer from "./footer";
 import "./usermain.css";
@@ -9,6 +11,15 @@ import UserProfilePage from "./userprofile.jsx";
 
 const UserMainPage = () => {
   const [role, setRole] = useState("user");
+
+  const navigate = useNavigate();
+  useEffect(() => {
+    const role = localStorage.getItem('role');
+    if (!role || role !== 'user') {
+      navigate('/login');  
+    }
+  }, [navigate]);
+
 
   const menuOptions = [
     { label: "View Products", icon: "/iconviewproduct.png", link: "/products" },

@@ -1,7 +1,8 @@
 import { Fragment } from 'react';
 import './style.css';
 import '../src/views/home.css';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import UserMainPage from "./views/usermain";
 import NavBar from './views/nabvar';
@@ -11,8 +12,16 @@ import ItemCard from '../src/components/item-card';
 import { Link } from 'react-router-dom';
 function App() {
 
-  const [role, setRole] = useState('admin'); // Change to 'admin' to test admin view
-
+  const [role, setRole] = useState('admin'); 
+  
+  const navigate = useNavigate();
+  
+ useEffect(() => {
+    const role = localStorage.getItem('role');
+    if (!role || role !== 'admin') {
+      navigate('/login');  
+    }
+  }, [navigate]);
   return (
     <>
 
