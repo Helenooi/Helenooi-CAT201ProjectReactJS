@@ -53,7 +53,7 @@
     margin-left: 0.5rem;
 }
 
-.hero__input,.hero__textarea {
+.hero__input {
     font-size: var(--size-lg);
     font-weight: 500;
     border: 2px solid var(--clr-slate400);
@@ -62,9 +62,7 @@
     padding: 0.7rem;
     width: 100%;
 }
-.hero__textarea {
-    resize: none;
-}
+
 .capitalize {
     text-transform: capitalize;
 }

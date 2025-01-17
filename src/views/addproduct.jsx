@@ -8,7 +8,7 @@ import './addproduct.css';
 
 const AddProductPage = () => {
   const [formData, setFormData] = useState({
-    clothescode: '',  // Added clothescode state
+  //  clothescode: '',  // Added clothescode state
     clothesname: '',
     size: '',
     rentprice: '',  // Changed to rentprice
@@ -26,12 +26,11 @@ const AddProductPage = () => {
     setFormData({ ...formData, picture: file ? file.name : '' });
   };
 
-
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Construct data string
-    const dataString = `${formData.clothescode},${formData.clothesname},${formData.size},${formData.rentprice},${formData.picture},${formData.description}`;
+    // Construct data string to include rentprice as the field
+    const dataString = `${formData.clothesname},${formData.size},${formData.rentprice},${formData.picture},${formData.description}`;
 
     try {
         const response = await fetch('http://localhost:8080/add-product', {
@@ -50,10 +49,10 @@ const AddProductPage = () => {
 
         alert('Product added successfully!');
         setFormData({
-            clothescode: '',
+          //  clothescode: '',
             clothesname: '',
             size: '',
-            rentprice: '',
+            rentprice: '',  // Reset rentprice
             picture: '',
             description: '',
         });
@@ -62,7 +61,6 @@ const AddProductPage = () => {
         alert('An error occurred');
     }
 };
-
 
   return (
     <div>
@@ -79,17 +77,6 @@ const AddProductPage = () => {
             <p className="hero__msg" id="message"></p>
           
             
-            <p className="hero__subtitle">Clothes code:</p>
-            <input
-              className="hero__input"
-              type="text"
-              name="clothescode"
-              value={formData.clothescode}
-              onChange={handleChange}
-              placeholder="Enter clothes code"
-              required
-            />
-
             <p className="hero__subtitle">Clothes name:</p>
             <input
               className="hero__input"
