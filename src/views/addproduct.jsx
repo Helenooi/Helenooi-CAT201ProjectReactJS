@@ -1,154 +1,83 @@
-import React, { useState } from 'react';
-import NavBar from './nabvar';
-import Footer from './footer';
-import './utils.css';
-import './adminForm.css';
-import './modern-normalize.css';
-import './addproduct.css';
+import React, { useEffect, useState } from 'react';
+import Papa from 'papaparse';
+import NavBar from "./nabvar";
+import Footer from "./footer";
+import './user-viewProduct.css';
 
-const AddProductPage = () => {
-  const [formData, setFormData] = useState({
-    clothescode: '',  // Added clothescode state
-    clothesname: '',
-    size: '',
-    rentprice: '',  // Changed to rentprice
-    picture: '',
-    description: '',
-  });
+const App = () => {
+  const role = "user";
+  const [products, setProducts] = useState([]);
+  const [cart, setCart] = useState([]);
+  const [successMessage, setSuccessMessage] = useState('');
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
+  useEffect(() => {
+    // Fetch and parse the CSV file
+    Papa.parse('./public/product.csv', {
+      download: true,
+      header: true,
+      complete: (result) => {
+        setProducts(result.data);
+      },
+    });
+
+    // Load cart from localStorage
+    const savedCart = JSON.parse(localStorage.getItem('cart')) || [];
+    setCart(savedCart);
+  }, []);
+
+  const handleAddToCart = (product) => {
+    const updatedCart = [...cart, product];
+    setCart(updatedCart);
+    localStorage.setItem('cart', JSON.stringify(updatedCart));
+
+    // Show success message
+    setSuccessMessage(`${product['Clothes Name']} added to cart successfully!`);
+    setTimeout(() => setSuccessMessage(''), 2000);
   };
-
-  const handleFileChange = (e) => {
-    const file = e.target.files[0];
-    setFormData({ ...formData, picture: file ? file.name : '' });
-  };
-
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-
-    // Construct data string
-    const dataString = `${formData.clothescode},${formData.clothesname},${formData.size},${formData.rentprice},${formData.picture},${formData.description}`;
-
-    try {
-        const response = await fetch('http://localhost:8080/add-product', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'text/plain',
-            },
-            body: dataString,
-        });
-
-        if (!response.ok) {
-            console.error('Server error:', response.statusText);
-            alert('Failed to add product');
-            return;
-        }
-
-        alert('Product added successfully!');
-        setFormData({
-            clothescode: '',
-            clothesname: '',
-            size: '',
-            rentprice: '',
-            picture: '',
-            description: '',
-        });
-    } catch (error) {
-        console.error('Fetch error:', error);
-        alert('An error occurred');
-    }
-};
-
 
   return (
     <div>
-      <NavBar role="admin" />
-      <br />
-      <br /> <br /> <br />
-      <main>
-        <section className="hero container">
-          <h1 className="hero__title">Add New Product</h1>
-          <p className="hero__description">Complete the form below to add a new product</p>
-        </section>
-        <section className="hero container">
-          <form className="hero__form" id="addProductForm" onSubmit={handleSubmit}>
-            <p className="hero__msg" id="message"></p>
-          
-            
-            <p className="hero__subtitle">Clothes code:</p>
-            <input
-              className="hero__input"
-              type="text"
-              name="clothescode"
-              value={formData.clothescode}
-              onChange={handleChange}
-              placeholder="Enter clothes code"
-              required
-            />
+      <NavBar role={role} />
+      <br /><br /><br /><br />
+      <div className="rental-container">
+        {/* Check if there are no products */}
+        {products.length === 0 ? (
+          <div className="no-products-box">
+            <h3>No products available</h3>
+          </div>
+        ) : (
+          // Display products if available
+          products.map((product, index) => {
+            const isAddedToCart = cart.some((item) => item['Clothes Name'] === product['Clothes Name']);
+            return (
+              <div key={index} className="rental-card">
+                <img
+                  src={`/${product.Picture}`}
+                  alt={product['Clothes Name']}
+                  className="rental-image"
+                />
+                <h3 className="rental-title">{product['Clothes Name']}</h3>
+                <p className="rental-description">{product.Description}</p>
+                <p className="rental-price">${product['Rent Price']}</p>
+                <button
+                  className="rent-button"
+                  onClick={() => handleAddToCart(product)}
+                  disabled={isAddedToCart}
+                >
+                  {isAddedToCart ? "Added to Cart" : "Rent Now"}
+                </button>
+              </div>
+            );
+          })
+        )}
+      </div>
 
-            <p className="hero__subtitle">Clothes name:</p>
-            <input
-              className="hero__input"
-              type="text"
-              name="clothesname"
-              value={formData.clothesname}
-              onChange={handleChange}
-              placeholder="Enter clothes name"
-              required
-            />
-            
-            <p className="hero__subtitle">Size:</p>
-            <input
-              className="hero__input"
-              type="text"
-              name="size"
-              value={formData.size}
-              onChange={handleChange}
-              placeholder="Enter the size"
-              required
-            />
-            
-            <p className="hero__subtitle">Rent Price:</p>
-            <input
-              className="hero__input"
-              type="number"
-              name="rentprice" 
-              value={formData.rentprice}  
-              onChange={handleChange}
-              placeholder="Enter rent price"  
-              required
-            />
-            
-            <p className="hero__subtitle">Picture:</p>
-            <input
-              className="hero__input"
-              type="file"
-              name="picture"
-              onChange={handleFileChange}
-              accept="image/*"
-            />
-            
-            <p className="hero__subtitle">Description:</p>
-            <textarea
-              className="hero__textarea"
-              name="description"
-              value={formData.description}
-              onChange={handleChange}
-              placeholder="Enter description"
-              required
-            ></textarea>
-            
-            <button className="hero__button" type="submit">Add Product</button>
-          </form>
-        </section>
-      </main>
+      {/* Success Message */}
+      {successMessage && <div className="success-message">{successMessage}</div>}
+
       <Footer />
     </div>
   );
 };
 
-export default AddProductPage;
+export default App;
