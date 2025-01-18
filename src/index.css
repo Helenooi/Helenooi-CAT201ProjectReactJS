@@ -123,10 +123,11 @@
   color: rgba(0, 0, 0, 1);
   cursor: pointer;
   height: auto;
-  font-size: 13px;
+  font-size: 15px;
   text-align: left;
   transition: 0.3s;
-  font-family: Jost;
+  /* font-family: Jost; */
+  font-family: "Tw Cen MT", Arial, sans-serif;
   font-weight: 500;
   text-decoration: none;
 }
@@ -141,8 +142,9 @@
   height: auto;
   font-size: 24px;
   transition: 0.3s;
-  font-family: Jost;
-  font-weight: 500;
+  /* font-family: Jost; */
+  font-family: "Tw Cen MT", Arial, sans-serif;
+  font-weight: 550;
   line-height: 20px;
   margin-left: var(--dl-space-space-fourunits);
   margin-right: var(--dl-space-space-fourunits);
@@ -157,7 +159,8 @@
 .Heading-3 {
   font-size: 24px;
   font-style: normal;
-  font-family: Jost;
+  /* font-family: Jost; */
+  font-family: "Tw Cen MT", Arial, sans-serif;
   font-weight: 500;
   line-height: 20px;
   letter-spacing: 0.4em;
@@ -167,7 +170,8 @@
  
 .Content {
   font-size: 16px;
-  font-family: Jost;
+  /* font-family: Jost; */
+  font-family: "Tw Cen MT", Arial, sans-serif;
   font-weight: 400;
   letter-spacing: 0.02;
   text-transform: none;
@@ -176,7 +180,8 @@
  
 .Heading-1 {
   font-size: 36px;
-  font-family: Jost;
+  /* font-family: Jost; */
+  font-family: "Tw Cen MT", Arial, sans-serif;
   font-weight: 500;
   line-height: 47px;
   letter-spacing: 0.16em;
@@ -186,7 +191,8 @@
  
 .Heading-2 {
   font-size: 28px;
-  font-family: Jost;
+  /* font-family: Jost; */
+  font-family: "Tw Cen MT", Arial, sans-serif;
   font-weight: 500;
   line-height: 36px;
   letter-spacing: 0.06em;

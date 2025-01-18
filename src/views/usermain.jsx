@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import NavBar from "./nabvar";
+import NavBar from "./navbar";
 import Footer from "./footer";
 import "./usermain.css";
 import SectionHeading from "../components/section-heading";
 import { Link } from "react-router-dom";
 import UserProfilePage from "./userprofile.jsx";
+
 
 const UserMainPage = () => {
   const [role, setRole] = useState("user");
@@ -18,6 +19,7 @@ const UserMainPage = () => {
       navigate('/login');  
     }
   }, [navigate]);
+
 
   const menuOptions = [
     { label: "View Products", icon: "/iconviewproduct.png", link: "/products" },
@@ -57,36 +59,35 @@ const UserMainPage = () => {
             <p className="hero-description">
               Your go-to destination for affordable and stylish clothing rentals!
             </p>
-            <button className="cta-button" onClick={() => navigate('/products')}>
-              Explore Now
-            </button>
+            <button className="cta-button">Explore Now</button>
           </div>
           <div className="hero-images">
-            <img
-              src="/dress5.jpg"
-              alt="Fashion Collection 1"
-              className="animated-image left-image"
-            />
-            <img
-              src="/promdress1.jpg"
-              alt="Fashion Collection 2"
-              className="animated-image right-image"
-            />
-          </div>
+    <img
+      src="/dress5.jpg"
+      alt="Fashion Collection 1"
+      className="animated-image left-image"
+    />
+    <img
+      src="/promdress1.jpg"
+      alt="Fashion Collection 2"
+      className="animated-image right-image"
+    />
+     </div>
         </div>
 
         <div className="menu">
-          {menuOptions.map((option, index) => (
-            <Link to={option.link} className="menu-item" key={index}>
-              <img src={option.icon} alt={option.label} className="card-icon" />
-              <span className="card-label">{option.label}</span>
-            </Link>
-          ))}
-        </div>
+  {menuOptions.map((option, index) => (
+    <Link to={option.link} className="menu-item" key={index}>
+      <img src={option.icon} alt={option.label} className="card-icon" />
+      <span className="card-label">{option.label}</span>
+    </Link>
+  ))}
+  </div>
 
+        
         <h1><br/><br/></h1>
         <h2 className="section-heading">FEATURED COLLECTIONS</h2>
-
+        
         <h1><br/><br/></h1>
         <div className="best-sellers">
           {bestSellers.map((item, index) => (
@@ -106,7 +107,6 @@ const UserMainPage = () => {
 };
 
 export default UserMainPage;
-
 
 
 

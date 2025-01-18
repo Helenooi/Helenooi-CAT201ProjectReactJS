@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import Papa from 'papaparse';
-import NavBar from "./nabvar";
+import NavBar from "./navbar";
 import Footer from "./footer";
 import './user-viewProduct.css';
 

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate, Link } from "react-router-dom"; 
 import Papa from "papaparse";  // Import PapaParse to parse CSV
-import NavBar from "./nabvar"; 
+import NavBar from "./navbar"; 
 import Footer from "./footer"; 
 import './login.css';
 import './utils.css';
