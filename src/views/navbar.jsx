@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useLocation } from "react-router-dom";
 import "./home.css";
 import Logout from "./logout.jsx";
+import { Link } from "react-router-dom";
 
 const NavBar = ({ role }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -19,8 +20,10 @@ const NavBar = ({ role }) => {
     if (role === "admin") {
       return (
         <>
-          <span className="navbar-link">ADD PRODUCT</span>
-          <span className="navbar-link">MANAGE USERS</span>
+          <Link className="navbar-link" to="/addproduct">ADD PRODUCT</Link>
+
+          <Link className="navbar-link" to="/viewproduct">VIEW PRODUCTT</Link>
+          
         </>
       );
     }

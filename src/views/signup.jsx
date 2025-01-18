@@ -114,7 +114,6 @@ const Signup = () => {
             />
 
             <p className="hero__subtitle">Password:</p>
-            <div className="password-container">
               <input
                 className="hero__input"
                 type={passwordVisible ? "text" : "password"} // Toggle between text and password
@@ -129,10 +128,8 @@ const Signup = () => {
               >
                 <i className={`fas ${passwordVisible ? "fa-eye-slash" : "fa-eye"}`}></i> {/* Change icon based on visibility */}
               </button>
-            </div>
 
             <p className="hero__subtitle">Confirm Password:</p>
-            <div className="password-container">
               <input
                 className="hero__input"
                 type={confirmPasswordVisible ? "text" : "password"} // Toggle between text and password
@@ -147,9 +144,9 @@ const Signup = () => {
               >
                 <i className={`fas ${confirmPasswordVisible ? "fa-eye-slash" : "fa-eye"}`}></i> {/* Change icon based on visibility */}
               </button>
-            </div>
+          
 
-            <button className="hero__login" type="submit" disabled={loading}>
+            <button className="btn2" type="submit" disabled={loading}>
               {loading ? "Signing up..." : "SIGNUP"}
             </button>
           </form>
@@ -159,6 +156,9 @@ const Signup = () => {
         </section>
     
       </main>
+      <br/>
+      <br/>
+      <br/>
       <Footer />
     </>
   );

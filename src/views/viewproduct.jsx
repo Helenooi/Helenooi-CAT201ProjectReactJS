@@ -1,9 +1,21 @@
-import React, { useState, useEffect } from 'react';
+
 import NavBar from './navbar';
 import Footer from './footer';
 import './viewproduct.css';
+import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const ViewProductPage = () => {
+
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const role = localStorage.getItem('role');
+    if (!role || role !== 'admin') {
+      navigate('/login');
+    }
+  }, [navigate]);
+
   const [products, setProducts] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
   const [filteredProducts, setFilteredProducts] = useState([]);
@@ -303,6 +315,8 @@ const handleDelete = async (clothesName) => {
           </table>
         </div>
       </main>
+      <br/>
+      <br/>
       <Footer />
     </div>
   );
