@@ -148,10 +148,14 @@ const AddProductPage = () => {
               required
             ></input>
 
-            <button className="btn2 hero__login" type="submit">Add Product</button>
+            <button className="btn2" type="submit">Add Product</button>
           </form>
         </section>
       </main>
+
+    <br/>
+    <br/>
+    <br/>
       <Footer />
     </div>
   );

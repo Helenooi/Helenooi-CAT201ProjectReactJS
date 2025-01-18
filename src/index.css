@@ -17,7 +17,7 @@
   --dl-color-gray-black80: #000000cc;
   --dl-color-pallet-green: #dfe7ddff;
   --dl-size-size-maxwidth: 1328px;
-  --dl-color-pallet-yellow: #efc14cff;
+  --hover-color: rgb(115, 165, 76);
   --dl-radius-radius-round: 50%;
   --dl-space-space-halfunit: 8px;
   --dl-space-space-sixunits: 96px;
@@ -133,7 +133,7 @@
 }
  
 .navbar-link:hover {
-  color: var(--dl-color-pallet-yellow);
+  color: var(--hover-color);
 }
  
 .navbar-logo-title {
@@ -153,7 +153,7 @@
 }
  
 .navbar-logo-title:hover {
-  color: rgba(239, 193, 76, 1);
+  color:var(--hover-color);
 }
  
 .Heading-3 {
