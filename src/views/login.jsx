@@ -100,24 +100,24 @@ const Login = () => {
             />
 
             <p className="hero__subtitle">Password:</p>
-            <div className="password-container">
-              <input
-                className="hero__input"
-                type={passwordVisible ? "text" : "password"}
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                placeholder="Password"
-              />
-              <button
-                type="button"
-                className="password-toggle"
-                onClick={() => setPasswordVisible(!passwordVisible)}
-              >
-                <i className={`fas ${passwordVisible ? "fa-eye-slash" : "fa-eye"}`}></i>
-              </button>
-            </div>
+            <input
+  className="hero__input"
+  type={passwordVisible ? "text" : "password"}
+  value={password}
+  onChange={(e) => setPassword(e.target.value)}
+  placeholder="Password"
+/>
+<button
+  type="button"
+  className="password-toggle"
+  onClick={() => setPasswordVisible(!passwordVisible)}
+>
+  <i className={`fas ${passwordVisible ? "fa-eye-slash" : "fa-eye"}`}></i>
+</button>
 
-            <button className="btn2 hero__login" type="submit" disabled={loading}>
+
+
+            <button className="btn2" type="submit" disabled={loading}>
               {loading ? "Logging in..." : "LOGIN"}
             </button>
           </form>
@@ -127,6 +127,8 @@ const Login = () => {
           </div>
         </section>
       </main>
+
+      <br/> <br/> <br/>
       <Footer />
     </>
   );

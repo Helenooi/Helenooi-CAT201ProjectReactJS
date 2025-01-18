@@ -32,7 +32,7 @@ const NavBar = ({ role }) => {
   };
 
   // Check if the current path is login or signup
-  const isAuthPage = location.pathname === "/login" || location.pathname === "/signup";
+  const isAuthPage = location.pathname === "/login" || location.pathname === "/signup" || location.pathname === "/";
 
   return (
     <div className="home-navbar1">

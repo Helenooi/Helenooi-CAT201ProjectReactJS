@@ -21,10 +21,11 @@
     font-weight: 600;
     text-decoration: none;
     letter-spacing: -0.05em;
-    background-color: #28a745; /* Green for an alternative button style */
-    color: #ffffff; /* White text */
+    background-color: #cae4c4; /* Green for an alternative button style */
+    color: #000000; /* White text */
     padding: 0.75em 1.5em;
-    border-radius: 20px;
+    width: 100%;
+    border-radius: 5px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2), 0 3px 6px rgba(0, 0, 0, 0.15); /* Neutral shadow */
     transition: transform 0.3s, box-shadow 0.3s;
 }

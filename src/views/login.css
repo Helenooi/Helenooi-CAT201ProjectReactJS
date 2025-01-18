@@ -8,6 +8,20 @@
     margin-top: 2rem;
 }
 
+.password-toggle {
+    background: none;
+    border: none;
+    cursor: pointer;
+    position: relative;
+    transform: translateY(-60px);
+    left: 100%;
+  }
+  
+  .password-toggle i {
+    font-size: 16px;
+  }
+
+  
 .hero__form {
     border: 1px solid #ccc;
     border-radius: 1rem;
@@ -41,17 +55,6 @@
     outline: none;
 }
 
-.hero__login {
-    width: 100%;
-    padding: 0.75rem;
-    font-size: 1rem;
-    font-weight: 600;
-    color: #fff;
-    border: none;
-    border-radius: 0.5rem;
-    cursor: pointer;
-    transition: background-color 0.3s, transform 0.2s;
-}
 
 .link{
     color: black;
