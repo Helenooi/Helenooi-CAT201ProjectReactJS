@@ -39,7 +39,7 @@ const NavBar = ({ role }) => {
       <header className="home-header max-width-container" style={{ height: "1.5rem" }}>
         <div className="home-navbar2">
           <div className="home-middle1">
-            <span className="home-logo-center1 navbar-logo-title">Rentique</span>
+            <span className="home-logo-center1 navbar-logo-title">RENTIQUE</span>
             <div className="home-right1 desktop-only">{renderLinks()}</div>
           </div>
 

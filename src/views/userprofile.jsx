@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import NavBar from "./nabvar";
+import NavBar from "./navbar";
 import Footer from "./footer";
 import "./userprofile.css";
 

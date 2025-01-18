@@ -1,78 +1,58 @@
 import { Fragment } from 'react';
-import './style.css';
-import '../src/views/home.css';
+import './App.css';
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { useNavigate, BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
 import UserMainPage from "./views/usermain";
-import NavBar from './views/nabvar';
+import NavBar from './views/navbar';
 import Footer from './views/footer';
-import SectionHeading from '../src/components/section-heading';
-import ItemCard from '../src/components/item-card';
-import { Link } from 'react-router-dom';
-function App() {
+import SectionHeading from './components/section-heading';
 
-  const [role, setRole] = useState('admin'); 
-  
+function App() {
+  const [role, setRole] = useState('admin');
   const navigate = useNavigate();
   
- useEffect(() => {
+  useEffect(() => {
     const role = localStorage.getItem('role');
     if (!role || role !== 'admin') {
       navigate('/login');  
     }
   }, [navigate]);
+
   return (
-    <>
-
-      <div>
-      <NavBar role={role}/>
-        <div className="home-main">
-          <div className="section-container">
-            <div className="max-width-container">
-              <SectionHeading heading="WELCOME, ADMIN" />
-              <div className="home-gallery">
-                <div className="home-right2">
-                  <div className="home-top">
-
-                    <ItemCard
-                      name="Luxury Executive Chair"
-                      text={<Fragment><span className="home-text19">View Order</span></Fragment>}
-                      imageSrc2="/iconvieworder.png"
-                      rootClassName="rootClassName1"
-                    />
-                    <ItemCard
-                      name="Luxury Executive Chair"
-                      text={<Fragment><span className="home-text20">View Product</span></Fragment>}
-                      imageSrc2="/iconviewproduct.png"
-                      rootClassName="rootClassName2"
-                    />
-
-<Link to="/addproduct">
-                     <ItemCard
-                      name="Luxury Executive Chair"
-                      text={<Fragment><span className="home-text20">Add Product</span></Fragment>}
-                      imageSrc2="/iconviewproduct.png"
-                      rootClassName="rootClassName2"
-                    />
-</Link>
-<ItemCard
-                      name="Luxury Executive Chair"
-                      text={<Fragment><span className="home-text20">Add Admin</span></Fragment>}
-                      imageSrc2="/iconviewproduct.png"
-                      rootClassName="rootClassName2"
-                    />
-                  
-                  </div>
-                  <div className="home-bottom"></div>
-                </div>
-              </div>
-            </div>
-          </div>
+    <div className="page-content">
+      <NavBar role={role} />
+      <br /><br /><br />
+      <div className="app hero-section">
+        <div className="app hero-content">
+          <h1 className="hero-title">Welcome, Admin</h1>
+          <p className="hero-description">
+            Manage your products and inventory with ease
+          </p>
         </div>
-        <Footer />
       </div>
-    </>
+
+      <div className="menu">
+        <Link to="/viewproduct" className="menu-item">
+          <img 
+            src="/iconviewproduct.png" 
+            alt="View Products" 
+            className="card-icon"
+          />
+          <span className="card-label">View Products</span>
+        </Link>
+        
+        <Link to="/addproduct" className="menu-item">
+          <img 
+            src="/iconviewproduct.png" 
+            alt="Add Product" 
+            className="card-icon"
+          />
+          <span className="card-label">Add Product</span>
+        </Link>
+      </div>
+      
+      <Footer />
+    </div>
   );
 }
 

@@ -1,6 +1,7 @@
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import App from './App.jsx';
+import ViewProduct from './views/viewproduct.jsx';
 import AddProductPage from './views/addproduct.jsx';  // Correct import
 import UserMainPage from './views/usermain.jsx';
 import UserProfilePage from "./views/userprofile"
@@ -22,6 +23,10 @@ const router = createBrowserRouter([
     path: "/signup",
     element: <Signup />, 
   }, 
+  {
+    path: "/viewproduct",
+    element: <ViewProduct />, 
+  },
   {
     path: "/addproduct",
     element: <AddProductPage />, 
