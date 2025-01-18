@@ -1,7 +1,8 @@
 import React, { useState } from "react";
-import { useNavigate, Link } from "react-router-dom"; // Import Link
-import NavBar from "./nabvar"; // Assuming a proper NavBar component
-import Footer from "./footer"; // Assuming a proper Footer component
+import { useNavigate, Link } from "react-router-dom"; 
+import Papa from "papaparse";  // Import PapaParse to parse CSV
+import NavBar from "./nabvar"; 
+import Footer from "./footer"; 
 import './login.css';
 import './utils.css';
 import './adminForm.css';
@@ -9,7 +10,7 @@ import './adminForm.css';
 const Login = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [passwordVisible, setPasswordVisible] = useState(false); // State to control password visibility
+  const [passwordVisible, setPasswordVisible] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
@@ -19,38 +20,55 @@ const Login = () => {
       setErrorMessage("Username and Password cannot be empty.");
       return;
     }
-
+  
     setLoading(true);
     setErrorMessage("");
-
+  
     try {
-      const response = await fetch("http://localhost:8080/api/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          username: username.trim(),
-          password: password.trim(),
-        }),
-      });
-
-      const result = await response.json();
-
-      if (result.status === "success") {
-        localStorage.setItem("username", result.username);
-        localStorage.setItem("role", result.role);
-
-        navigate(result.role === "admin" ? "/adminpage" : "/userpage");
-      } else {
-        setErrorMessage(result.message || "Invalid username or password.");
+      // Fetch the CSV file from the public directory
+      const response = await fetch("/public/users.csv");  // Adjust the path if needed
+      if (!response.ok) {
+        throw new Error(`Error fetching CSV file: ${response.statusText}`);
       }
+      const csvText = await response.text();
+      
+      // Parse the CSV data using PapaParse
+      Papa.parse(csvText, {
+        header: true,
+        skipEmptyLines: true,
+        complete: (result) => {
+          console.log(result.data); // Log parsed CSV data
+          const users = result.data;
+  
+          // Check if the username and password match any entry in the CSV
+          const user = users.find(
+            (u) => u.Username.trim() === username.trim() && u.Password.trim() === password.trim()
+          );
+  
+          if (user) {
+            // Store user information in localStorage
+            localStorage.setItem("username", user.Username);
+            localStorage.setItem("role", user.Role);
+  
+            // Navigate to the respective page based on role
+            navigate(user.Role === "admin" ? "/adminpage" : "/userpage");
+          } else {
+            setErrorMessage("Invalid username or password.");
+          }
+        },
+        error: (error) => {
+          console.error("Error parsing CSV:", error);
+          setErrorMessage("An error occurred while processing the login.");
+        },
+      });
     } catch (error) {
+      console.error("Login Error:", error);
       setErrorMessage("Unable to log in. Please try again later.");
     } finally {
       setLoading(false);
     }
   };
+  
 
   return (
     <>
@@ -85,7 +103,7 @@ const Login = () => {
             <div className="password-container">
               <input
                 className="hero__input"
-                type={passwordVisible ? "text" : "password"} // Toggle between text and password
+                type={passwordVisible ? "text" : "password"}
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder="Password"
@@ -93,9 +111,9 @@ const Login = () => {
               <button
                 type="button"
                 className="password-toggle"
-                onClick={() => setPasswordVisible(!passwordVisible)} // Toggle password visibility
+                onClick={() => setPasswordVisible(!passwordVisible)}
               >
-                <i className={`fas ${passwordVisible ? "fa-eye-slash" : "fa-eye"}`}></i> {/* Change icon based on visibility */}
+                <i className={`fas ${passwordVisible ? "fa-eye-slash" : "fa-eye"}`}></i>
               </button>
             </div>
 
@@ -104,7 +122,6 @@ const Login = () => {
             </button>
           </form>
 
-          
           <div className="signup-link">
             <p>No have an account? <Link className="link" to="/signup">Sign up here</Link></p>
           </div>

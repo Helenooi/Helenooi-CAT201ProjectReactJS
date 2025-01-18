@@ -6,9 +6,11 @@ import com.sun.net.httpserver.Headers;
 import java.io.*;
 import java.net.InetSocketAddress;
 import java.nio.charset.StandardCharsets;
+/*
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Base64;
+*/
 
 public class BackendJava {
     public static void main(String[] args) throws IOException {
@@ -28,68 +30,105 @@ public class BackendJava {
         server.start();
     }
 
+
     static class LoginHandler implements HttpHandler {
         @Override
         public void handle(HttpExchange exchange) throws IOException {
             Headers headers = exchange.getResponseHeaders();
-
+    
             // Add CORS headers
             headers.add("Access-Control-Allow-Origin", "*");
-            headers.add("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
+            headers.add("Access-Control-Allow-Methods", "POST, OPTIONS");
             headers.add("Access-Control-Allow-Headers", "Content-Type");
-
+    
             // Handle OPTIONS method for preflight requests
             if ("OPTIONS".equalsIgnoreCase(exchange.getRequestMethod())) {
                 exchange.sendResponseHeaders(204, -1); // No content for OPTIONS
                 return;
             }
-
-            // Handle POST method for login
+    
+            // Handle only POST requests for login
             if ("POST".equalsIgnoreCase(exchange.getRequestMethod())) {
-                InputStream is = exchange.getRequestBody();
-                String requestBody = new String(is.readAllBytes(), StandardCharsets.UTF_8);
-
-                // Parse username and password from the request body
+                String requestBody = readRequestBody(exchange);
+    
+                // Parse JSON input
                 String username = null;
                 String password = null;
                 if (requestBody.contains("\"username\"") && requestBody.contains("\"password\"")) {
                     username = requestBody.split("\"username\":\"")[1].split("\"")[0];
                     password = requestBody.split("\"password\":\"")[1].split("\"")[0];
                 }
-
-                // Mock user credentials
-                String adminUsername = "admin";
-                String adminPassword = "adminpassword";
-                String userUsername = "user";
-                String userPassword = "userpassword";
-
-                // Prepare the response
-                String jsonResponse;
-                if (adminUsername.equals(username) && adminPassword.equals(password)) {
-                    jsonResponse = "{\"status\":\"success\",\"role\":\"admin\"}";
-                } else if (userUsername.equals(username) && userPassword.equals(password)) {
-                    jsonResponse = "{\"status\":\"success\",\"role\":\"user\"}";
-                } else {
-                    jsonResponse = "{\"status\":\"error\",\"message\":\"Invalid username or password\"}";
+    
+                if (username == null || password == null) {
+                    sendResponse(exchange, "Missing required fields.", 400); // Bad Request
+                    return;
                 }
-
-                // Send response
-                headers.set("Content-Type", "application/json");
-                exchange.sendResponseHeaders(200, jsonResponse.getBytes(StandardCharsets.UTF_8).length);
-                OutputStream os = exchange.getResponseBody();
-                os.write(jsonResponse.getBytes(StandardCharsets.UTF_8));
-                os.close();
+    
+                // Check the credentials
+                String response = checkCredentials(username, password);
+    
+                // Send response back to the client
+                if (response != null) {
+                    sendResponse(exchange, response, 200); // Login success with role
+                } else {
+                    sendResponse(exchange, "Invalid credentials.", 401); // Unauthorized
+                }
             } else {
-                String response = "Method Not Allowed";
-                exchange.sendResponseHeaders(405, response.getBytes(StandardCharsets.UTF_8).length);
-                OutputStream os = exchange.getResponseBody();
-                os.write(response.getBytes(StandardCharsets.UTF_8));
-                os.close();
+                sendResponse(exchange, "Method Not Allowed", 405); // Method Not Allowed
+            }
+        }
+    
+        // Function to read the request body (login credentials)
+        private String readRequestBody(HttpExchange exchange) throws IOException {
+            InputStream inputStream = exchange.getRequestBody();
+            return new String(inputStream.readAllBytes(), StandardCharsets.UTF_8);
+        }
+    
+      // Function to check the username and password in users.csv
+private String checkCredentials(String username, String password) {
+    String filePath = "public" + File.separator + "users.csv"; // Path to the CSV file
+    File file = new File(filePath);
+
+    if (!file.exists()) {
+        return null;
+    }
+
+    try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
+        String line;
+        // Skip the header row
+        reader.readLine();
+
+        while ((line = reader.readLine()) != null) {
+            String[] fields = line.split(",");
+            if (fields.length == 6) {
+                String csvUsername = fields[3]; // Username column
+                String csvPassword = fields[4]; // Password column
+                String csvRole = fields[5].trim(); // Trim any extra newline or whitespace
+
+                // Compare username and password
+                if (username.equals(csvUsername) && password.equals(csvPassword)) {
+                    return String.format("{\"status\":\"success\",\"role\":\"%s\"}", csvRole); // Return role
+                }
+            }
+        }
+    } catch (IOException e) {
+        e.printStackTrace();
+    }
+
+    return null; // Return null if credentials do not match
+}
+
+        // Function to send a response back to the client
+        private void sendResponse(HttpExchange exchange, String response, int statusCode) throws IOException {
+            exchange.sendResponseHeaders(statusCode, response.getBytes().length);
+            try (OutputStream os = exchange.getResponseBody()) {
+                os.write(response.getBytes());
             }
         }
     }
 
-
+    
+  
     static class AddProductHandler implements HttpHandler {
         @Override
         public void handle(HttpExchange exchange) throws IOException {
@@ -219,7 +258,10 @@ public class BackendJava {
                 // Generate username
                 String username = generateUsername(firstname, lastname);
     
-                // Hash the password
+                // Default role is "user"
+                String role = "user";  // Assign default role as "user"
+    
+                // Hash the password (using plain text for now, you may hash it later)
                 String hashedPassword = password;
     
                 // Save to CSV file
@@ -239,9 +281,9 @@ public class BackendJava {
     
                 try (BufferedWriter writer = new BufferedWriter(new FileWriter(csvFile, true))) {
                     if (isNewFile) {
-                        writer.write("First Name,Last Name,Email,Username,Password\n"); // Write header if new file
+                        writer.write("First Name,Last Name,Email,Username,Password,Role,Description"); // Write header if new file
                     }
-                    writer.write(String.format("%s,%s,%s,%s,%s\n", firstname, lastname, email, username, hashedPassword));
+                    writer.write(String.format("%s,%s,%s,%s,%s,%s\n", firstname, lastname, email, username, hashedPassword, "user","Done"));
                 }
     
                 // Send success response
@@ -265,12 +307,8 @@ public class BackendJava {
             int randomNumber = (int) (Math.random() * 90) + 10; // Generate a random 2-digit number
             return baseUsername + randomNumber;
         }
-    
-     
     }
     
-
-    /////
  
     /// 
 
