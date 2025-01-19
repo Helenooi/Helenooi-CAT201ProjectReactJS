@@ -3,8 +3,8 @@
     font-weight: 600;
     text-decoration: none;
     letter-spacing: -0.05em;
-    background-color: #007bff; /* Professional blue color */
-    color: #ffffff; /* White text */
+    background-color: #007bff; 
+    color: #ffffff; 
     padding: 0.75em 1.5em;
     border-radius: 6px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2), 0 6px 6px rgba(0, 0, 0, 0.15); /* Neutral shadow */
@@ -21,8 +21,8 @@
     font-weight: 600;
     text-decoration: none;
     letter-spacing: -0.05em;
-    background-color: #cae4c4; /* Green for an alternative button style */
-    color: #000000; /* White text */
+    background-color: #cae4c4; 
+    color: #000000; 
     padding: 0.75em 1.5em;
     width: 100%;
     border-radius: 5px;
@@ -41,36 +41,33 @@
     margin-right: auto;
     padding-left: 0.5rem;
     padding-right: 0.5rem;
-    /* border: 1px solid red; */
-    /* border: none; */
 }
 
 .section {
     margin-top: 5rem;
 }
 
-/* xs */
+
 @media (min-width: 475px) {
     .container{
         max-width: 475px;
     }
 }
 
-/* sm */
+
 @media (min-width: 640px) {
     .container{
         max-width: 640px;
     }
 }
 
-/* md */
+
 @media (min-width: 768px) {
     .container{
         max-width: 768px;
     }
 }
 
-/* lg */
 @media (min-width: 1024px) {
     .container{
         max-width: 1024px;
@@ -81,14 +78,12 @@
     }
 }
 
-/* xl */
 @media (min-width: 1280px) {
     .container{
         max-width: 1280px;
     }
 }
 
-/* 2xl */
 @media (min-width: 1536px) {
     .container{
         max-width: 1536px;

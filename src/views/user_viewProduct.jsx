@@ -12,7 +12,6 @@ const App = () => {
   const [successMessage, setSuccessMessage] = useState('');
 
   useEffect(() => {
-    // Fetch and parse the CSV file
     Papa.parse('public/product.csv', {
       download: true,
       header: true,
@@ -21,7 +20,6 @@ const App = () => {
       },
     });
 
-    // Load cart from localStorage
     const savedCart = JSON.parse(localStorage.getItem('cart')) || [];
     setCart(savedCart);
   }, []);
@@ -37,7 +35,6 @@ const App = () => {
     setCart(updatedCart);
     localStorage.setItem('cart', JSON.stringify(updatedCart));
 
-    // Show success message
     setSuccessMessage(`${product['Clothes Name']} added to cart successfully!`);
     setTimeout(() => setSuccessMessage(''), 2000);
 
@@ -49,13 +46,11 @@ const App = () => {
       <NavBar role={role} />
       <br /><br /><br /><br />
       <div className="rental-container">
-        {/* Check if there are no products */}
         {products.length === 0 ? (
           <div className="no-products-box">
             <h3>No products available</h3>
           </div>
         ) : (
-          // Display products if available
           products.map((product, index) => {
             const isAddedToCart = cart.some((item) => item['Clothes Name'] === product['Clothes Name']);
             return (
@@ -83,10 +78,8 @@ const App = () => {
         )}
       </div>
 
-      {/* Success Message */}
       {successMessage && <div className="success-message">{successMessage}</div>}
 
-      {/* Modal Section */}
       {selectedProduct && (
         <div className="modal">
           <div className="modal-content">

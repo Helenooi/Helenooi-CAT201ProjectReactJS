@@ -1,13 +1,12 @@
-/* General Page Styling */
+
 .page-content {
     padding: 20px;
     font-family: "Tw Cen MT", Arial, sans-serif;
   }
   
-  /* Hero Section */
+
   .hero-section {
     display: flex;
-    /* justify-content: space-between; */
     align-items: center;
     background-color: #b6c4ba;
     padding: 40px;
@@ -32,7 +31,7 @@
     color: #555;
   }
   
-  /* Search styling */
+
   .search-container {
     margin-top: 20px;
   }
@@ -53,7 +52,6 @@
     border-color: #b6c4ba;
   }
   
-  /* Table styling */
   .table-container {
     width: 100%;
     overflow-x: auto;
@@ -94,7 +92,6 @@
     border-radius: 4px;
   }
   
-  /* Edit and Delete button */
   .action-buttons {
     white-space: nowrap;
   }
@@ -161,7 +158,8 @@
     border-color: #b6c4ba;
     box-shadow: 0 0 0 2px rgba(182, 196, 186, 0.2);
   }
-  /* Responsive design */
+
+  
   @media (max-width: 768px) {
     .hero-section {
       padding: 20px;

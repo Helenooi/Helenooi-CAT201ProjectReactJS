@@ -1,10 +1,10 @@
-/* General Page Styling */
+
 .page-content {
     padding: 20px;
     font-family: "Tw Cen MT", Arial, sans-serif;
   }
   
-  /* Hero Section */
+
   .hero-section {
     display: flex;
     justify-content: wrap;
@@ -51,13 +51,13 @@
     background-color: #f0ebcb;
   }
   
-  /* Hero Image */
+
   .hero-images {
     flex: 1;
     display: flex;
     gap: 10px;
     justify-content: center;
-    flex-wrap: wrap; /* Ensures images wrap on smaller screens */
+    flex-wrap: wrap; 
     max-width: 70%;
     padding: 10px;
     box-sizing: border-box;
@@ -65,7 +65,7 @@
   
   .hero-images img {
     width: 100%;
-    max-width: 200px; /* Restricts max width of images */
+    max-width: 200px; 
     height: auto;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -77,7 +77,7 @@
     transition: transform 0.3s ease-in-out;
   }  
   
-  /* Animation */
+
   .left-image {
     animation: fadeInSlideLeft 1.5s ease-in-out;
     animation-delay: 0.3s;
@@ -111,27 +111,25 @@
   }
   
   
-  /* Media Queries for Responsiveness */
   @media (max-width: 768px) {
     .hero-section {
-      flex-direction: column; /* Stacks content vertically */
+      flex-direction: column; 
       text-align: center;
     }
   
     .hero-content {
-      max-width: 100%; /* Expands to full width */
+      max-width: 100%;
     }
   
     .hero-images {
-      max-width: 100%; /* Expands to full width */
+      max-width: 100%; 
     }
   
     .hero-images img {
-      max-width: 150px; /* Smaller images for mobile */
+      max-width: 150px; 
     }
   }
   
-  /* Menu Styling */
   .menu {
     display: flex;
     flex-wrap: wrap;
@@ -173,7 +171,6 @@
     color: #333;
   }
   
-  /* Best Sellers */
   .best-sellers {
     display: flex;
     gap: 20px;

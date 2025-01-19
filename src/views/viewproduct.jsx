@@ -57,39 +57,14 @@ const ViewProductPage = () => {
     setFilteredProducts(filtered);
   };
 
-//   const handleDelete = async (clothesName) => {
-//     if (window.confirm('Are you sure you want to delete this product?')) {
-//       try {
-//         const response = await fetch('/delete-product', {
-//           method: 'POST',
-//           headers: {
-//             'Content-Type': 'application/x-www-form-urlencoded',
-//           },
-//           body: `clothesName=${encodeURIComponent(clothesName)}`
-//         });
-
-//         if (response.ok) {
-//           fetchProducts(); // Refresh the list
-//           alert('Product deleted successfully!');
-//         } else {
-//           alert('Failed to delete product');
-//         }
-//       } catch (error) {
-//         console.error('Error deleting product:', error);
-//         alert('Error deleting product');
-//       }
-//     }
-//   };
 
 const handleDelete = async (clothesName) => {
     if (window.confirm('Are you sure you want to delete this product?')) {
       try {
-        // Directly update the CSV file
         const updatedProducts = products.filter(
           product => product['Clothes Name'] !== clothesName
         );
         
-        // Update the CSV content
         const header = 'Clothes Name,Size,Rent Price,Picture,Description\n';
         const content = updatedProducts.map(p => 
           `${p['Clothes Name']},${p.Size},${p['Rent Price']},${p.Picture},${p.Description}`
@@ -120,7 +95,6 @@ const handleDelete = async (clothesName) => {
         p['Clothes Name'] === editingProduct.originalName ? editingProduct : p
       );
 
-      // Update the CSV content
       const header = 'Clothes Name,Size,Rent Price,Picture,Description\n';
       const content = updatedProducts.map(p => 
         `${p['Clothes Name']},${p.Size},${p['Rent Price']},${p.Picture},${p.Description}`
@@ -148,31 +122,6 @@ const handleDelete = async (clothesName) => {
   const handleEdit = (product) => {
     setEditingProduct({ ...product });
   };
-
-//   const handleSaveEdit = async () => {
-//     try {
-//       const dataString = `${editingProduct['Clothes Name']},${editingProduct.Size},${editingProduct['Rent Price']},${editingProduct.Picture},${editingProduct.Description}`;
-      
-//       const response = await fetch('/edit-product', {
-//         method: 'POST',
-//         headers: {
-//           'Content-Type': 'application/x-www-form-urlencoded',
-//         },
-//         body: `originalName=${encodeURIComponent(editingProduct.originalName)}&data=${encodeURIComponent(dataString)}`
-//       });
-
-//       if (response.ok) {
-//         setEditingProduct(null);
-//         fetchProducts(); // Refresh the list
-//         alert('Product updated successfully!');
-//       } else {
-//         alert('Failed to update product');
-//       }
-//     } catch (error) {
-//       console.error('Error updating product:', error);
-//       alert('Error updating product');
-//     }
-//   };
 
   return (
     <div>

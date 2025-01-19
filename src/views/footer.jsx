@@ -6,7 +6,7 @@ const Footer = () => {
   return (
     <div className="footer-section">
       <div className="footer-container">
-        {/* Logo and Slogan */}
+
         <div className="footer-logo-section">
           <h3 className="footer-logo">RENTIQUE</h3>
           <span className="footer-slogan">
@@ -14,14 +14,12 @@ const Footer = () => {
           </span>
         </div>
 
-        {/* Contact Information */}
         <div className="footer-contact-section">
           <h3 className="footer-heading">Contact Us</h3>
           <span className="footer-text">(60) 10-1235555</span>
           <span className="footer-text">rentique@gmail.com</span>
         </div>
 
-        {/* Address */}
         <div className="footer-address-section">
           <h3 className="footer-heading">Visit Us</h3>
           <span className="footer-text">
@@ -31,7 +29,6 @@ const Footer = () => {
           </span>
         </div>
 
-        {/* Social Media */}
         <div className="footer-social-section">
           <h3 className="footer-heading">Follow Us</h3>
           <div className="footer-social-icons">
@@ -45,7 +42,6 @@ const Footer = () => {
         </div>
       </div>
 
-      {/* Copyright */}
       <div className="footer-copyright">
         <span>&copy; {currentYear} Rentique. All rights reserved.</span>
       </div>

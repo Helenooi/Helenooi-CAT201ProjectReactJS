@@ -34,7 +34,6 @@
   display: flex;
   margin-top: 1rem;
   font-size: 18px;
-  /* font-family: Jost; */
   font-family: "Tw Cen MT", Arial, sans-serif;
   font-weight: 500;
   width: 100%;
@@ -45,7 +44,6 @@
 .navbar-link {
   color: inherit;
   text-decoration: none;
-  /* font-family: Jost; */
   font-family: "Tw Cen MT", Arial, sans-serif;
   font-weight: 500;
 }
@@ -142,7 +140,6 @@
 
 .footer-logo {
   font-size: 24px;
-  /* font-family: Jost; */
   font-family: "Tw Cen MT", Arial, sans-serif;
   font-weight: 800;
   margin-bottom: var(--dl-space-space-oneandhalfunits);
@@ -153,13 +150,11 @@
   color: rgb(23, 7, 7);
   margin-top: var(--dl-space-space-oneandhalfunits);
   margin-bottom: var(--dl-space-space-oneandhalfunits);
-  /* font-family: Jost; */
   font-family: "Tw Cen MT", Arial, sans-serif;
 }
 
 .footer-heading {
   font-size: 18px;
-  /* font-family: Jost; */
   font-family: "Tw Cen MT", Arial, sans-serif;
   font-weight: 600;
   margin-bottom: var(--dl-space-space-unit);
@@ -169,7 +164,6 @@
 .footer-text {
   color: rgb(23, 7, 7);
   margin-bottom: var(--dl-space-space-unit);
-  /* font-family: Jost; */
   font-family: "Tw Cen MT", Arial, sans-serif;
   font-weight: 500;
 }
@@ -198,7 +192,6 @@
   align-items: center;
   justify-content: center;
   border-top: 1px solid rgba(255, 255, 255, 0.1);
-  /* font-family: Jost; */
   font-family: "Tw Cen MT", Arial, sans-serif;
   color: rgb(23, 7, 7);
 }
@@ -245,7 +238,6 @@
   color: var(--dl-color-gray-black);
   height: auto;
   font-size: 24px;
-  /* font-family: Jost; */
   font-family: "Tw Cen MT", Arial, sans-serif;
   font-weight: 500;
   line-height: 20px;
@@ -255,9 +247,7 @@
   text-decoration: none;
 }
 
-/* .home-logo-center2 {
-  color: var(--dl-color-pallet-green);
-} */
+
 
 .home-right1 {
   display: flex;
@@ -292,14 +282,8 @@
 .home-middle1 {
   display: flex;
   position: relative;
-  /* box-sizing: border-box; */
   align-items: center;
-  /* flex-shrink: 1; */
-  /* border-color: transparent; */
-  /* justify-content: center; */
   gap: 45px;
-  /* justify-content: flex-start;  */
-  /* flex: 1 */
 }
 
 .home-middle2 {
@@ -307,19 +291,6 @@
   flex-direction: column;
   align-items: flex-start;
 }
-
-/* .home-middle2 {
-  gap: var(--dl-space-space-unit);
-  display: flex;
-  position: relative;
-  box-sizing: border-box;
-  align-items: flex-start;
-  flex-shrink: 1;
-  border-color: transparent;
-  margin-bottom: var(--dl-space-space-oneandhalfunits);
-  flex-direction: column;
-  justify-content: center;
-} */
 
 .home-text13,
 .home-text14,
@@ -351,21 +322,10 @@
 }
  
 .home-burger-menu {
-  /* border: none; */
-  /* background: none; */
-  /* cursor: pointer; */
-  /* padding: 8px; */
   display: none; 
-  /* display: flex; */
-  /* cursor: pointer; */
-  /* align-items: center; */
-  /* justify-content: center; */
-  /* margin-left: auto; */
 }
 
 .home-icon10 {
-  /* width: 24px; */
-  /* height: 24px; */
   display: none;
 }
 .home-mobile-menu {
@@ -411,17 +371,12 @@
   opacity: 0.7;
 }
 
-/* .home-icon12 {
-  width: var(--dl-size-size-xsmall);
-  height: var(--dl-size-size-xsmall);
-} */
- 
+
 .home-text13 {
   color: rgba(0, 0, 0, 1);
   height: auto;
   font-size: 13px;
   text-align: left;
-  /* font-family: Jost; */
   font-family: "Tw Cen MT", Arial, sans-serif;
   font-weight: 500;
   text-decoration: none;
@@ -432,7 +387,6 @@
   height: auto;
   font-size: 13px;
   text-align: left;
-  /* font-family: Jost; */
   font-family: "Tw Cen MT", Arial, sans-serif;
   font-weight: 500;
   text-decoration: none;
@@ -443,7 +397,6 @@
   height: auto;
   font-size: 13px;
   text-align: left;
-  /* font-family: Jost; */
   font-family: "Tw Cen MT", Arial, sans-serif;
   font-weight: 500;
   text-decoration: none;
@@ -454,7 +407,6 @@
   height: auto;
   font-size: 13px;
   text-align: left;
-  /* font-family: Jost; */
   font-family: "Tw Cen MT", Arial, sans-serif;
   font-weight: 500;
   text-decoration: none;
@@ -465,7 +417,6 @@
   height: auto;
   font-size: 13px;
   text-align: left;
-  /* font-family: Jost; */
   font-family: "Tw Cen MT", Arial, sans-serif;
   font-weight: 500;
   text-decoration: none;
@@ -476,14 +427,12 @@
   height: auto;
   font-size: 13px;
   text-align: left;
-  /* font-family: Jost; */
   font-family: "Tw Cen MT", Arial, sans-serif;
   font-weight: 500;
   text-decoration: none;
 }
 
 .home-icon10,
-/* .home-icon12, */
 .home-icon14,
 .home-icon16,
 .home-icon18 {
@@ -817,7 +766,6 @@
     height: auto;
     font-size: 24px;
     transition: 0.3s;
-    /* font-family: Jost; */
     font-family: "Tw Cen MT", Arial, sans-serif;
     font-weight: 500;
     position: absolute;

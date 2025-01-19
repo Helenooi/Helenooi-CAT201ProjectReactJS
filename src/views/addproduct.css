@@ -92,7 +92,7 @@
 
 /*may fen*/
 #picturesWrapper input[type="file"] {
-    margin-bottom: 10px; /* Adjust the margin as needed */
+    margin-bottom: 10px; 
 }
 
 .file-input-wrapper {
@@ -157,13 +157,7 @@
      }
 }
 
-/* sm */
-/* @media (min-width: 640px) {} */
 
-/* md */
-/* @media (min-width: 768px) {} */
-
-/* lg */
 @media (min-width: 1024px) {
     .hero__title {
         font-size: var(--size-6xl);
@@ -207,6 +201,5 @@
     }
 }
 
-/* 2xl */
-/* @media (min-width: 1536px) {} */
+
 

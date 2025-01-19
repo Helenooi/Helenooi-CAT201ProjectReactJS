@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 
 const NavBar = ({ role }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const location = useLocation(); // Access the current location
+  const location = useLocation(); 
 
   const renderLinks = () => {
     if (role === "user") {
@@ -34,7 +34,6 @@ const NavBar = ({ role }) => {
     setIsMenuOpen(false);
   };
 
-  // Check if the current path is login or signup
   const isAuthPage = location.pathname === "/login" || location.pathname === "/signup" || location.pathname === "/";
 
   return (

@@ -25,32 +25,28 @@ const Login = () => {
     setErrorMessage("");
   
     try {
-      // Fetch the CSV file from the public directory
-      const response = await fetch("/public/users.csv");  // Adjust the path if needed
+      const response = await fetch("/public/users.csv"); 
       if (!response.ok) {
         throw new Error(`Error fetching CSV file: ${response.statusText}`);
       }
       const csvText = await response.text();
       
-      // Parse the CSV data using PapaParse
+
       Papa.parse(csvText, {
         header: true,
         skipEmptyLines: true,
         complete: (result) => {
-          console.log(result.data); // Log parsed CSV data
+          console.log(result.data); 
           const users = result.data;
   
-          // Check if the username and password match any entry in the CSV
-          const user = users.find(
+           const user = users.find(
             (u) => u.Username.trim() === username.trim() && u.Password.trim() === password.trim()
           );
   
           if (user) {
-            // Store user information in localStorage
             localStorage.setItem("username", user.Username);
             localStorage.setItem("role", user.Role);
   
-            // Navigate to the respective page based on role
             navigate(user.Role === "admin" ? "/adminpage" : "/userpage");
           } else {
             setErrorMessage("Invalid username or password.");

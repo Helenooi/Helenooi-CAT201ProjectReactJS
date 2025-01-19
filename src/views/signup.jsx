@@ -14,10 +14,10 @@ const Signup = () => {
   const [password, setPassword] = useState("");
   const [confirmpassword, setConfirmpassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
-  const [successMessage, setSuccessMessage] = useState(""); // State for success message
+  const [successMessage, setSuccessMessage] = useState(""); 
   const [loading, setLoading] = useState(false);
-  const [passwordVisible, setPasswordVisible] = useState(false); // State to control password visibility
-  const [confirmPasswordVisible, setConfirmPasswordVisible] = useState(false); // State for confirm password visibility
+  const [passwordVisible, setPasswordVisible] = useState(false); 
+  const [confirmPasswordVisible, setConfirmPasswordVisible] = useState(false); 
   const navigate = useNavigate();
 
   const handleSignup = async () => {
@@ -33,7 +33,7 @@ const Signup = () => {
 
     setLoading(true);
     setErrorMessage("");
-    setSuccessMessage(""); // Reset success message
+    setSuccessMessage(""); 
 
     try {
       const response = await fetch("http://localhost:8080/api/signup", {
@@ -54,7 +54,7 @@ const Signup = () => {
       if (result.status === "success") {
         setSuccessMessage(`Signup successful! Your username is ${result.username}`); // Include username
         setTimeout(() => {
-          navigate("/"); // Redirect after showing the message
+          navigate("/"); 
         }, 2000);
       }
        else {

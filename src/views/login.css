@@ -78,7 +78,6 @@
     width: 14rem;
     padding: var(--size-xxs);
     margin: 1rem auto;
-    /* color: white; */
     color: white;
     font-weight: 600;
 }
@@ -99,8 +98,8 @@
     padding: 0.75rem;
     font-size: 1rem;
     font-weight: 600;
-    background-color: #007bff !important; /* Ensures the blue color overrides any inherited styles */
-    color: #fff !important; /* Ensures white text */
+    background-color: #007bff !important; 
+    color: #fff !important; 
     border: none;
     border-radius: 0.5rem;
     cursor: pointer;
@@ -108,7 +107,7 @@
 }
 
 .hero__login:hover {
-    background-color: #0056b3; /* Darker blue on hover */
+    background-color: #0056b3; 
     transform: scale(1.03);
 }
 
@@ -116,13 +115,6 @@
     background-color: #003f7f;
 }
 
-/* sm */
-/* @media (min-width: 640px) {} */
-
-/* md */
-/* @media (min-width: 768px) {} */
-
-/* lg */
 @media (min-width: 1024px) {
     .hero__img {
         height: var(--size-9xl);
@@ -144,9 +136,3 @@
         width: 20rem;
     }
 }
-
-/* xl */
-/* @media (min-width: 1280px) {} */
-
-/* 2xl */
-/* @media (min-width: 1536px) {} */
