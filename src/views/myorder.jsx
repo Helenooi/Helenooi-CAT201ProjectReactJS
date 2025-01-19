@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom'; // Import useNavigate hook
+import { useLocation, useNavigate } from 'react-router-dom'; // Use the navigate hook
 import NavBar from './navbar';  // Ensure NavBar is included
 import Footer from './footer';
 import './myorder.css';
@@ -22,18 +22,13 @@ const Orders = () => {
     }
   }, [navigate]);
 
-  // Generate a random order code
-  const generateOrderCode = () => {
-    const randomNumber = Math.floor(Math.random() * 9000) + 1000; // Random number between 1000 and 9999
-    return `ORD-${randomNumber}`;
-  };
-
   // Handle clear order history (clear the localStorage)
   const resetOrderHistory = () => {
     localStorage.removeItem('allOrders'); // Clear all orders in localStorage
     setAllOrders([]); // Reset the state to an empty array
   };
 
+  // If no orders found, show a message
   if (!allOrders || allOrders.length === 0) {
     return (
       <div>
@@ -56,10 +51,11 @@ const Orders = () => {
       <div className="order-confirmation-container">
         <h1>Order History</h1>
         <p>Thank you for your purchases! Here is the list of your past orders.</p>
-        {allOrders.map((order, index) => (
+
+        {/* Display last 5 orders from localStorage */}
+        {allOrders.slice(0, 5).map((order, index) => (
           <div key={index} className="order-details-box">
-            {/* Use generateOrderCode() to create a unique code for each order */}
-            <h2>{generateOrderCode()}</h2> 
+            <h2>{order.invoiceNumber}</h2>
             <p><strong>Invoice Number:</strong> {order.invoiceNumber}</p>
             <p><strong>Order Date:</strong> {new Date(order.date).toLocaleDateString()}</p>
 
@@ -87,14 +83,14 @@ const Orders = () => {
             </div>
 
             <div className="order-summary">
-              <p><strong>Total Price:</strong> RM {order.totalPrice.toFixed(2)} </p>
-              <br /><br /><br /><br />
+              <p><strong>Total Price:</strong> {order.totalPrice.toFixed(2)} RM</p>
             </div>
           </div>
         ))}
 
         <div className="order-actions">
           <button onClick={() => navigate("/userpage")}>Back to Home</button>
+          {/* Clear History Button */}
           <button onClick={resetOrderHistory}>Clear History</button>
         </div>
       </div>
@@ -105,6 +101,15 @@ const Orders = () => {
 };
 
 export default Orders;
+
+
+
+
+
+
+
+
+
 
 
 

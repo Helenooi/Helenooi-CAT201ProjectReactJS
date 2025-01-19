@@ -34,10 +34,34 @@ const Cart = () => {
     setTotalPrice(newTotal);
   };
 
+  // Function to generate a random order code
+  const generateOrderCode = () => {
+    const randomNumber = Math.floor(Math.random() * 9000) + 1000; // Random number between 1000 and 9999
+    return `ORD-${randomNumber}`;
+  };
+
+  // Handle payment and checkout
   const handlePayment = () => {
-    const invoiceNumber = `INV-${new Date().getTime()}`;
+    const invoiceNumber = generateOrderCode(); // Generate a random order number
+    const orderDate = new Date().toISOString(); // Save current date in ISO format
+
     // Prepare cart data to pass to the orders page
-    const orderDetails = { cart, totalPrice, invoiceNumber };
+    const orderDetails = { cart, totalPrice, invoiceNumber, date: orderDate };
+    
+    // Get all orders from localStorage
+    const allOrders = JSON.parse(localStorage.getItem('allOrders')) || [];
+
+    // Add the new order to the front of the orders array
+    allOrders.unshift(orderDetails);
+
+    // If there are more than 5 orders, remove the oldest one
+    if (allOrders.length > 5) {
+      allOrders.pop();  // Remove the oldest order
+    }
+
+    // Save the updated orders back to localStorage
+    localStorage.setItem('allOrders', JSON.stringify(allOrders));
+
     // Navigate to the orders page and pass the order details
     navigate('/orders', { state: orderDetails });
 
@@ -93,4 +117,8 @@ const Cart = () => {
 };
 
 export default Cart;
+
+
+
+
 
