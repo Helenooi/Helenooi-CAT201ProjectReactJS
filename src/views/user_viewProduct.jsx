@@ -62,6 +62,11 @@ const App = () => {
           </div>
         ) : (
           products.map((product, index) => {
+
+            //May Fen Add to stop loop when the product is finished//
+
+            if (index === products.length - 1) return null;
+
             const isAddedToCart = cart.some((item) => item['Clothes Name'] === product['Clothes Name']);
             return (
               <div className="rental-card">
@@ -115,6 +120,9 @@ const App = () => {
         </div>
       )}
 
+      <br/>
+      <br/>
+      <br/>
       <Footer />
     </div>
   );

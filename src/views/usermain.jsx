@@ -114,6 +114,9 @@ const UserMainPage = () => {
           ))}
         </div>
       </div>
+      <br/>
+      <br/>
+      <br/>
       <Footer />
     </>
   );

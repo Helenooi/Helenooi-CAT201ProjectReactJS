@@ -94,6 +94,9 @@ const Orders = () => {
         </div>
       </div>
 
+      <br/>
+      <br/>
+      <br/>
       <Footer />
     </div>
   );

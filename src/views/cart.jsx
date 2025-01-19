@@ -104,6 +104,11 @@ const Cart = () => {
           </>
         )}
       </div>
+
+      
+      <br/>
+      <br/>
+      <br/>
       <Footer />
     </div>
   );
