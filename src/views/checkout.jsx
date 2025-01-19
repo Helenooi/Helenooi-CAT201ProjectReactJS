@@ -7,13 +7,13 @@ import Footer from './footer';
 const Checkout = () => {
   const role = "user";
   const location = useLocation();
-  const { cart, totalPrice } = location.state || {}; // Access the state passed from Cart
+  const { cart, totalPrice } = location.state || {}; 
 
-  const [email, setEmail] = useState(""); // Store user's email
+  const [email, setEmail] = useState(""); 
 
   const handlePayment = () => {
   
-    // Format cart data into CSV
+    
     const headers = ["Email", "Clothes Code", "Clothes Name", "Size", "Price"];
     const rows = cart.map(item => [
       email,
@@ -23,16 +23,16 @@ const Checkout = () => {
       item["Rent Price"]
     ]);
   
-    // Add a summary row for the total price
+    
     rows.push(["", "", "", "Total Price", totalPrice.toFixed(2)]);
   
-    // Combine headers and rows into a CSV string
+    
     const csvContent =
       [headers, ...rows]
-        .map(row => row.join(",")) // Convert each row to a comma-separated string
-        .join("\n"); // Join all rows with newline characters
+        .map(row => row.join(",")) 
+        .join("\n"); 
   
-    // Create a Blob and download the file
+   
     const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" });
     const url = URL.createObjectURL(blob);
     const link = document.createElement("a");

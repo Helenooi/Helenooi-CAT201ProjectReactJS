@@ -15,13 +15,13 @@ const UserProfilePage = () => {
     }
   }, [navigate]);
 
-  // State to store profile data
+
   const [profile] = useState({
     name: "Ooi May Fen",
     email: "mayyfenn@gmail.com",
     phone: "011-3775587",
     address: "USM, Pulau Pinang",
-    profilePicture: "/iconprofile.png", // Placeholder for profile picture
+    profilePicture: "/iconprofile.png", 
   });
 
   return (

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom'; // Import useNavigate hook
+import { useNavigate } from 'react-router-dom'; 
 import NavBar from './navbar';
 import Footer from './footer';
 import './cart.css';
@@ -36,12 +36,12 @@ const Cart = () => {
 
   const handlePayment = () => {
     const invoiceNumber = `INV-${new Date().getTime()}`;
-    // Prepare cart data to pass to the orders page
+
     const orderDetails = { cart, totalPrice, invoiceNumber };
-    // Navigate to the orders page and pass the order details
+  
     navigate('/orders', { state: orderDetails });
 
-    // Clear the cart
+
     localStorage.removeItem('cart');
     setCart([]);
     setTotalPrice(0);

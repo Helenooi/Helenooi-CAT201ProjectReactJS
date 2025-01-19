@@ -6,13 +6,12 @@ import { Link } from "react-router-dom";
 
 const NavBar = ({ role }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const location = useLocation(); 
+  const location = useLocation();
 
   const renderLinks = () => {
     if (role === "user") {
       return (
         <>
-          <Link className="navbar-link" to="/userpage">HOME</Link>
           <Link className="navbar-link" to="/products">VIEW PRODUCT</Link>
           <Link className="navbar-link" to="/cart">CART</Link>
           <Link className="navbar-link" to="/orders">MY ORDERS</Link>
@@ -24,9 +23,7 @@ const NavBar = ({ role }) => {
       return (
         <>
           <Link className="navbar-link" to="/addproduct">ADD PRODUCT</Link>
-
           <Link className="navbar-link" to="/viewproduct">VIEW PRODUCT</Link>
-          
         </>
       );
     }
@@ -88,7 +85,7 @@ const NavBar = ({ role }) => {
               <div className="home-right1">{renderLinks()}</div>
               {!isAuthPage && (
                 <a href="/login" className="navbar-login-mobile">
-                  LogOut
+                  LOGOUT
                 </a>
               )}
             </div>
@@ -100,3 +97,4 @@ const NavBar = ({ role }) => {
 };
 
 export default NavBar;
+
