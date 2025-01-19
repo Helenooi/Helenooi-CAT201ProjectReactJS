@@ -22,7 +22,7 @@ const NavBar = ({ role }) => {
         <>
           <Link className="navbar-link" to="/addproduct">ADD PRODUCT</Link>
 
-          <Link className="navbar-link" to="/viewproduct">VIEW PRODUCTT</Link>
+          <Link className="navbar-link" to="/viewproduct">VIEW PRODUCT</Link>
           
         </>
       );
