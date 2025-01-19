@@ -15,6 +15,7 @@ const NavBar = ({ role }) => {
           <Link className="navbar-link" to="/userpage">HOME</Link>
           <Link className="navbar-link" to="/products">VIEW PRODUCT</Link>
           <Link className="navbar-link" to="/cart">CART</Link>
+          <Link className="navbar-link" to="/orders">MY ORDERS</Link>
           <Link className="navbar-link" to="/profile">USER PROFILE</Link>
         </>
       );

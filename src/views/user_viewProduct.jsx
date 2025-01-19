@@ -3,6 +3,7 @@ import Papa from 'papaparse';
 import NavBar from "./navbar";
 import Footer from "./footer";
 import './user-viewProduct.css';
+import { useNavigate } from 'react-router-dom';
 
 const App = () => {
   const role = "user";
@@ -10,6 +11,8 @@ const App = () => {
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [cart, setCart] = useState([]);
   const [successMessage, setSuccessMessage] = useState('');
+  const navigate = useNavigate();
+
 
   useEffect(() => {
     const role = localStorage.getItem("role");

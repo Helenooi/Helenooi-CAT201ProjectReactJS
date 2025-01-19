@@ -26,7 +26,7 @@ const UserMainPage = () => {
   const menuOptions = [
     { label: "View Products", icon: "/iconviewproduct.png", link: "/products" },
     { label: "Cart", icon: "/211707_cart_icon.png", link: "/cart" },
-    { label: "My Orders", icon: "/iconmyorder.png", link: "/payment" },
+    { label: "My Orders", icon: "/iconmyorder.png", link: "/orders" },
     { label: "User Profile", icon: "/iconuserprofile.png", link: "/profile" },
   ];
 

@@ -10,6 +10,7 @@ import UserViewProduct from './views/user_viewProduct.jsx';
 import UserCart from './views/cart.jsx';
 import Signup from './views/signup.jsx';
 import Checkout from './views/checkout.jsx';
+import Orders from './views/myorder.jsx';
 import './index.css';
 
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
@@ -61,6 +62,11 @@ const router = createBrowserRouter([
   {
     path: "/checkout",
     element: <Checkout/>, 
+  },
+
+  {
+    path: "/orders",
+    element: <Orders/>, 
   },
 ]);
 
