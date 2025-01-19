@@ -14,19 +14,17 @@ import java.util.Base64;
 
 public class BackendJava {
     public static void main(String[] args) throws IOException {
-        // Create the HTTP server on port 8080
         HttpServer server = HttpServer.create(new InetSocketAddress(8080), 0);
         System.out.println("Server is running on http://localhost:8080");
 
-        // Register endpoints
         server.createContext("/api/login", new LoginHandler());
         server.createContext("/add-product", new AddProductHandler());
         server.createContext("/api/signup", new SignupHandler());
         server.createContext("/api/saveOrder", new CheckoutHandler());
 
 
-        // Start the server
-        server.setExecutor(null); // Use the default executor
+     
+        server.setExecutor(null); 
         server.start();
     }
 
@@ -36,12 +34,11 @@ public class BackendJava {
         public void handle(HttpExchange exchange) throws IOException {
             Headers headers = exchange.getResponseHeaders();
     
-            // Add CORS headers
+   
             headers.add("Access-Control-Allow-Origin", "*");
             headers.add("Access-Control-Allow-Methods", "POST, OPTIONS");
             headers.add("Access-Control-Allow-Headers", "Content-Type");
     
-            // Handle OPTIONS method for preflight requests
             if ("OPTIONS".equalsIgnoreCase(exchange.getRequestMethod())) {
                 exchange.sendResponseHeaders(204, -1);
                 return;
@@ -52,7 +49,7 @@ public class BackendJava {
                     InputStream inputStream = exchange.getRequestBody();
                     String body = new String(inputStream.readAllBytes(), StandardCharsets.UTF_8);
     
-                    // Parse data (expecting 6 fields now)
+         
                     String[] parts = body.split(",");
                     if (parts.length != 6) {
                         String errorResponse = "Invalid number of fields. Expected 6 fields.";
@@ -63,7 +60,6 @@ public class BackendJava {
                         return;
                     }
     
-                    // Match the order from frontend
                     String clothesCode = parts[0];
                     String clothesName = parts[1];
                     String size = parts[2];
@@ -74,7 +70,7 @@ public class BackendJava {
                     String projectRoot = System.getProperty("user.dir");
                     String filePath = projectRoot + File.separator + "public" + File.separator + "product.csv";
     
-                    // Create the file if it doesn't exist
+                  
                     File csvFile = new File(filePath);
                     boolean isNewFile = false;
                     if (!csvFile.exists()) {
@@ -85,7 +81,6 @@ public class BackendJava {
                         isNewFile = csvFile.createNewFile();
                     }
     
-                    // Append to the CSV file
                     try (BufferedWriter writer = new BufferedWriter(new FileWriter(csvFile, true))) {
                         if (isNewFile) {
                             writer.write("Clothes Code,Clothes Name,Size,Rent Price,Picture,Description\n");
@@ -94,7 +89,6 @@ public class BackendJava {
                             clothesCode, clothesName, size, rentPrice, picturePath, description));
                     }
     
-                    // Send success response
                     String response = "Product added successfully!";
                     exchange.sendResponseHeaders(200, response.length());
                     try (OutputStream os = exchange.getResponseBody()) {
@@ -121,23 +115,22 @@ public class BackendJava {
         public void handle(HttpExchange exchange) throws IOException {
             Headers headers = exchange.getResponseHeaders();
     
-            // Add CORS headers
+     
             headers.add("Access-Control-Allow-Origin", "*");
             headers.add("Access-Control-Allow-Methods", "POST, OPTIONS");
             headers.add("Access-Control-Allow-Headers", "Content-Type");
     
-            // Handle OPTIONS method for preflight requests
+            
             if ("OPTIONS".equalsIgnoreCase(exchange.getRequestMethod())) {
-                exchange.sendResponseHeaders(204, -1); // No content for OPTIONS
+                exchange.sendResponseHeaders(204, -1); 
                 return;
             }
     
-            // Handle POST request for login
             if ("POST".equalsIgnoreCase(exchange.getRequestMethod())) {
                 InputStream inputStream = exchange.getRequestBody();
                 String requestBody = new String(inputStream.readAllBytes(), StandardCharsets.UTF_8);
     
-                // Parse the JSON input (expecting email/username and password)
+            
                 String username = null;
                 String password = null;
     
@@ -155,7 +148,6 @@ public class BackendJava {
                     return;
                 }
     
-                // Validate login credentials by checking the CSV file
                 String filePath = System.getProperty("user.dir") + File.separator + "public" + File.separator + "users.csv";
                 File csvFile = new File(filePath);
     
@@ -172,13 +164,13 @@ public class BackendJava {
     
                 try (BufferedReader reader = new BufferedReader(new FileReader(csvFile))) {
                     String line;
-                    reader.readLine(); // Skip header line
+                    reader.readLine(); 
     
                     while ((line = reader.readLine()) != null) {
                         String[] userFields = line.split(",");
                         if (userFields.length >= 5) {
-                            String storedUsername = userFields[3];  // Username is the 4th column
-                            String storedPassword = userFields[4];  // Password is the 5th column
+                            String storedUsername = userFields[3]; 
+                            String storedPassword = userFields[4]; 
     
                             if (storedUsername.equals(username) && storedPassword.equals(password)) {
                                 loginSuccess = true;
@@ -196,7 +188,6 @@ public class BackendJava {
                     return;
                 }
     
-                // Send response based on login success
                 if (loginSuccess) {
                     String response = "{\"status\":\"success\",\"message\":\"Login successful!\"}";
                     exchange.sendResponseHeaders(200, response.length());
@@ -211,7 +202,6 @@ public class BackendJava {
                     }
                 }
             } else {
-                // Method Not Allowed for non-POST requests
                 String response = "Method Not Allowed";
                 exchange.sendResponseHeaders(405, response.getBytes(StandardCharsets.UTF_8).length);
                 try (OutputStream os = exchange.getResponseBody()) {
@@ -227,14 +217,12 @@ public class BackendJava {
         public void handle(HttpExchange exchange) throws IOException {
             Headers headers = exchange.getResponseHeaders();
     
-            // Add CORS headers
             headers.add("Access-Control-Allow-Origin", "*");
             headers.add("Access-Control-Allow-Methods", "POST, OPTIONS");
             headers.add("Access-Control-Allow-Headers", "Content-Type");
     
-            // Handle OPTIONS method for preflight requests
             if ("OPTIONS".equalsIgnoreCase(exchange.getRequestMethod())) {
-                exchange.sendResponseHeaders(204, -1); // No content for OPTIONS
+                exchange.sendResponseHeaders(204, -1); 
                 return;
             }
     
@@ -242,7 +230,7 @@ public class BackendJava {
                 InputStream is = exchange.getRequestBody();
                 String requestBody = new String(is.readAllBytes(), StandardCharsets.UTF_8);
     
-                // Parse JSON input
+
                 String firstname = null;
                 String lastname = null;
                 String email = null;
@@ -264,16 +252,13 @@ public class BackendJava {
                     return;
                 }
     
-                // Generate username
                 String username = generateUsername(firstname, lastname);
     
-                // Default role is "user"
-                String role = "user";  // Assign default role as "user"
     
-                // Hash the password (using plain text for now, you may hash it later)
+                String role = "user";  
+    
                 String hashedPassword = password;
     
-                // Save to CSV file
                 String projectRoot = System.getProperty("user.dir");
                 String filePath = projectRoot + File.separator + "public" + File.separator + "users.csv";
     
@@ -295,7 +280,6 @@ public class BackendJava {
                     writer.write(String.format("%s,%s,%s,%s,%s,%s,%s\n", firstname, lastname, email, username, hashedPassword, "user","yes"));
                 }
     
-                // Send success response
                 String response = String.format("{\"status\":\"success\",\"message\":\"Signup successful\",\"username\":\"%s\"}", username);
                 exchange.sendResponseHeaders(200, response.length());
                 try (OutputStream os = exchange.getResponseBody()) {
@@ -310,75 +294,64 @@ public class BackendJava {
             }
         }
     
-        // Generate username by combining firstname, lastname, and a random 2-digit number
         private String generateUsername(String firstname, String lastname) {
             String baseUsername = (firstname + lastname).toLowerCase().replaceAll("\\s+", "");
-            int randomNumber = (int) (Math.random() * 90) + 10; // Generate a random 2-digit number
+            int randomNumber = (int) (Math.random() * 90) + 10; 
             return baseUsername + randomNumber;
         }
     }
     
  
-    /// 
 
     static class CheckoutHandler implements HttpHandler {
         @Override
         public void handle(HttpExchange exchange) throws IOException {
-            // Add CORS headers
+
             Headers headers = exchange.getResponseHeaders();
             headers.add("Access-Control-Allow-Origin", "*");
             headers.add("Access-Control-Allow-Methods", "POST, OPTIONS");
             headers.add("Access-Control-Allow-Headers", "Content-Type");
 
-            // Handle OPTIONS method for preflight requests
             if ("OPTIONS".equalsIgnoreCase(exchange.getRequestMethod())) {
-                exchange.sendResponseHeaders(204, -1); // No content for OPTIONS
+                exchange.sendResponseHeaders(204, -1); 
                 return;
             }
 
-            // Handle only POST requests for checkout
             if ("POST".equalsIgnoreCase(exchange.getRequestMethod())) {
                 String cartData = readRequestBody(exchange);
                 if (cartData != null) {
                     System.out.println("Received Cart Data: " + cartData);
 
-                    // Process cart data here (e.g., save to a CSV)
+                 
                     String response = saveCartDataToCsv(cartData);
 
-                    // Send response back to the client
-                    sendResponse(exchange, response, 200); // Send success response
+                    sendResponse(exchange, response, 200);
                 } else {
-                    sendResponse(exchange, "No cart data received", 400); // Bad Request
+                    sendResponse(exchange, "No cart data received", 400); 
                 }
             } else {
-                sendResponse(exchange, "Method Not Allowed", 405); // Method Not Allowed
+                sendResponse(exchange, "Method Not Allowed", 405); 
             }
         }
 
-        // Function to read the request body (cart data)
         private String readRequestBody(HttpExchange exchange) throws IOException {
             InputStream inputStream = exchange.getRequestBody();
             return new String(inputStream.readAllBytes(), StandardCharsets.UTF_8);
         }
 
-        // Function to save the cart data to a CSV file
         private String saveCartDataToCsv(String cartData) {
             String filePath = "orderrecord.csv";
             StringBuilder response = new StringBuilder();
 
-            // Example: Save cart data to CSV (adapt the following as per your actual data)
             try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath, true))) {
-                // Check if the file is empty and write headers if necessary
                 File file = new File(filePath);
                 if (file.length() == 0) {
                     writer.write("Email,Clothes Code,Clothes Name,Size,Price\n");
                 }
 
-                // Example: Parse and write the cart data
                 String[] cartItems = cartData.substring(1, cartData.length() - 1).split("\\},\\{");
                 for (String item : cartItems) {
-                    // Manually extract values from the cart item (adapt as needed)
-                    String email = extractValue(item, "\"email\""); // assuming email is passed as part of the data
+                    String email = extractValue(item, "\"email\""); 
                     String clothesCode = extractValue(item, "\"Clothes Code\"");
                     String clothesName = extractValue(item, "\"Clothes Name\"");
                     String size = extractValue(item, "\"Size\"");
@@ -396,7 +369,6 @@ public class BackendJava {
             return response.toString();
         }
 
-        // Helper function to extract the value for a given key
         private String extractValue(String item, String key) {
             String value = "";
             String searchKey = key + "\":\"";
@@ -412,7 +384,6 @@ public class BackendJava {
             return value;
         }
 
-        // Function to send a response back to the client
         private void sendResponse(HttpExchange exchange, String response, int statusCode) throws IOException {
             exchange.sendResponseHeaders(statusCode, response.getBytes().length);
             try (OutputStream os = exchange.getResponseBody()) {

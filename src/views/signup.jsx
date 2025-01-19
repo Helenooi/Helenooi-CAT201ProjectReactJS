@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import NavBar from "./navbar"; // Assuming a proper NavBar component
-import Footer from "./footer"; // Assuming a proper Footer component
+import NavBar from "./navbar"; 
+import Footer from "./footer"; 
 import './login.css';
 import './utils.css';
 import './adminForm.css';
