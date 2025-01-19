@@ -1,34 +1,33 @@
 import React, { useEffect, useState } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom'; // Use the navigate hook
-import NavBar from './navbar';  // Ensure NavBar is included
+import { useLocation, useNavigate } from 'react-router-dom'; 
+import NavBar from './navbar';  
 import Footer from './footer';
 import './myorder.css';
 
 const Orders = () => {
   const role = "user";
-  const navigate = useNavigate(); // Use the navigate hook
+  const navigate = useNavigate(); 
   
-  // State to store all orders (only the last 5 orders)
+
   const [allOrders, setAllOrders] = useState(() => {
     const savedOrders = localStorage.getItem('allOrders');
     return savedOrders ? JSON.parse(savedOrders) : [];
   });
 
   useEffect(() => {
-    // Check if the user is logged in; redirect if not
+    
     const role = localStorage.getItem("role");
     if (!role || role !== "user") {
-      navigate("/login"); // Redirect to login if not logged in
+      navigate("/login"); 
     }
   }, [navigate]);
 
-  // Handle clear order history (clear the localStorage)
   const resetOrderHistory = () => {
-    localStorage.removeItem('allOrders'); // Clear all orders in localStorage
-    setAllOrders([]); // Reset the state to an empty array
+    localStorage.removeItem('allOrders'); 
+    setAllOrders([]); 
   };
 
-  // If no orders found, show a message
+  
   if (!allOrders || allOrders.length === 0) {
     return (
       <div>

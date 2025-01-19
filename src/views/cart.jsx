@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom'; // Import useNavigate hook
+import { useNavigate } from 'react-router-dom'; 
 import NavBar from './navbar';
 import Footer from './footer';
 import './cart.css';
@@ -34,38 +34,31 @@ const Cart = () => {
     setTotalPrice(newTotal);
   };
 
-  // Function to generate a random order code
   const generateOrderCode = () => {
-    const randomNumber = Math.floor(Math.random() * 9000) + 1000; // Random number between 1000 and 9999
+    const randomNumber = Math.floor(Math.random() * 9000) + 1000; 
     return `ORD-${randomNumber}`;
   };
 
-  // Handle payment and checkout
   const handlePayment = () => {
-    const invoiceNumber = generateOrderCode(); // Generate a random order number
-    const orderDate = new Date().toISOString(); // Save current date in ISO format
+    const invoiceNumber = generateOrderCode(); 
+    const orderDate = new Date().toISOString(); 
 
-    // Prepare cart data to pass to the orders page
     const orderDetails = { cart, totalPrice, invoiceNumber, date: orderDate };
     
-    // Get all orders from localStorage
     const allOrders = JSON.parse(localStorage.getItem('allOrders')) || [];
 
-    // Add the new order to the front of the orders array
+   
     allOrders.unshift(orderDetails);
 
-    // If there are more than 5 orders, remove the oldest one
     if (allOrders.length > 5) {
-      allOrders.pop();  // Remove the oldest order
+      allOrders.pop();  
     }
 
-    // Save the updated orders back to localStorage
     localStorage.setItem('allOrders', JSON.stringify(allOrders));
 
-    // Navigate to the orders page and pass the order details
     navigate('/orders', { state: orderDetails });
 
-    // Clear the cart
+  
     localStorage.removeItem('cart');
     setCart([]);
     setTotalPrice(0);
