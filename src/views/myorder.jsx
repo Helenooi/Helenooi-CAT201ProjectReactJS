@@ -82,7 +82,7 @@ const Orders = () => {
             </div>
 
             <div className="order-summary">
-              <p><strong>Total Price:</strong> {order.totalPrice.toFixed(2)} RM</p>
+              <p><strong>Total Price: RM</strong> {order.totalPrice.toFixed(2)} </p>
             </div>
           </div>
         ))}

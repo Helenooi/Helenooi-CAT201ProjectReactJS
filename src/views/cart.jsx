@@ -96,7 +96,7 @@ const Cart = () => {
             ))}
             <div className="cart-summary">
               <p>Total Quantity: {cart.length}</p>
-              <p>Total Price: {totalPrice.toFixed(2)} RM</p>
+              <p>Total Price: RM {totalPrice.toFixed(2)} </p>
               <button className="btn2 hero__login right" type="submit" onClick={handlePayment}>
                 Check out
               </button>
