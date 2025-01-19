@@ -12,8 +12,10 @@ const NavBar = ({ role }) => {
     if (role === "user") {
       return (
         <>
-          <span className="navbar-link">VIEW PRODUCT</span>
-          <span className="navbar-link">MY ORDERS</span>
+          <Link className="navbar-link" to="/userpage">HOME</Link>
+          <Link className="navbar-link" to="/products">VIEW PRODUCT</Link>
+          <Link className="navbar-link" to="/cart">CART</Link>
+          <Link className="navbar-link" to="/profile">USER PROFILE</Link>
         </>
       );
     }
@@ -85,7 +87,7 @@ const NavBar = ({ role }) => {
               <div className="home-right1">{renderLinks()}</div>
               {!isAuthPage && (
                 <a href="/login" className="navbar-login-mobile">
-                  Login
+                  LogOut
                 </a>
               )}
             </div>

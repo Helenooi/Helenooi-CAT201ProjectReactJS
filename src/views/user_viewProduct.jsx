@@ -12,6 +12,13 @@ const App = () => {
   const [successMessage, setSuccessMessage] = useState('');
 
   useEffect(() => {
+    const role = localStorage.getItem("role");
+    if (!role || role !== "user") {
+      navigate("/login");
+    }
+  }, [navigate]);
+
+  useEffect(() => {
     Papa.parse('public/product.csv', {
       download: true,
       header: true,
@@ -63,7 +70,7 @@ const App = () => {
               <h3 className="rental-title">{product['Clothes Name']}</h3>
               {/*<p className="rental-code"><strong>Code:</strong> {product['Clothes Code']}</p> */}
               <p className="rental-description">{product.Description}</p>
-              <p className="rental-price">${product['Rent Price']}</p>
+              <p className="rental-price">RM {product['Rent Price']}</p>
               <button
                 className="rent-button"
                 onClick={() => setSelectedProduct(product)}
@@ -94,7 +101,7 @@ const App = () => {
             <h3>{selectedProduct['Clothes Name']}</h3>
             <p>{selectedProduct.Description}</p>
             <p><strong>Size:</strong> {selectedProduct.Size}</p>
-            <p><strong>Price:</strong> {selectedProduct['Rent Price']}</p>
+            <p><strong>Price (RM):</strong> {selectedProduct['Rent Price']}</p>
             <button
               className="add-to-cart-button"
               onClick={() => handleAddToCart(selectedProduct)}

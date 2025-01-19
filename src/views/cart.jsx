@@ -11,6 +11,13 @@ const Cart = () => {
   const navigate = useNavigate(); // Declare navigate
 
   useEffect(() => {
+      const role = localStorage.getItem("role");
+      if (!role || role !== "user") {
+        navigate("/login");
+      }
+    }, [navigate]);
+
+  useEffect(() => {
     const savedCart = JSON.parse(localStorage.getItem('cart')) || [];
     setCart(savedCart);
 
@@ -96,7 +103,7 @@ const Cart = () => {
                   <p><strong>Code:</strong> {item['Clothes Code']}</p>
                   <p>{item.Description}</p>
                   <p><strong>Size:</strong> {item.Size}</p>
-                  <p><strong>Price:</strong> ${item['Rent Price']}</p>
+                  <p><strong>Price (RM):</strong> {item['Rent Price']}</p>
                 </div>
                 <button
                   className="cart-item-remove"

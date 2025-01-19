@@ -1,10 +1,19 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import NavBar from "./navbar";
 import Footer from "./footer";
 import "./userprofile.css";
 
 const UserProfilePage = () => {
   const role = "user";
+  const navigate = useNavigate();
+  
+  useEffect(() => {
+    const role = localStorage.getItem("role");
+    if (!role || role !== "user") {
+      navigate("/login");
+    }
+  }, [navigate]);
 
   // State to store profile data
   const [profile, setProfile] = useState({
