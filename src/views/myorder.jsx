@@ -1,58 +1,65 @@
 import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom'; 
-import NavBar from './navbar';  
+import { useLocation, useNavigate } from 'react-router-dom';
+import NavBar from './navbar';
 import Footer from './footer';
 import './myorder.css';
 
 const Orders = () => {
-  const role = "user";
-  const navigate = useNavigate(); 
-  
+  const location = useLocation();
+  const navigate = useNavigate(); // Use the navigate hook
+  const { cart, totalPrice, invoiceNumber } = location.state || {};
 
+  // State to store all orders (only the last 2 orders)
   const [allOrders, setAllOrders] = useState(() => {
     const savedOrders = localStorage.getItem('allOrders');
     return savedOrders ? JSON.parse(savedOrders) : [];
   });
 
+  // Save the new order and keep only the last 2 orders in localStorage
   useEffect(() => {
-  
-    const role = localStorage.getItem("role");
-    if (!role || role !== "user") {
-      navigate("/login"); 
+    if (cart) {
+      const newOrder = { cart, totalPrice, invoiceNumber, date: new Date().toISOString() };
+      const updatedOrders = [newOrder, ...allOrders]; // Add new order to the beginning of the array
+      if (updatedOrders.length > 2) {
+        updatedOrders.pop(); // Keep only the last 2 orders
+      }
+      localStorage.setItem('allOrders', JSON.stringify(updatedOrders)); // Store updated orders
+      setAllOrders(updatedOrders); // Update the state
     }
-  }, [navigate]);
+  }, [cart, totalPrice, invoiceNumber]);
 
+  // Reset all order history (clear the localStorage)
   const resetOrderHistory = () => {
-    localStorage.removeItem('allOrders'); 
-    setAllOrders([]); 
+    localStorage.removeItem('allOrders'); // Clear all orders in localStorage
+    setAllOrders([]); // Reset the state to empty array
   };
 
   if (!allOrders || allOrders.length === 0) {
-    return (
-      <div>
-        <NavBar role={role} />
-        <br /><br /><br /><br />
-        <div className="order-confirmation-container">
-          <h1>No orders found. Please try again later.</h1>
-        </div>
-        <Footer />
-      </div>
-    );
+    return <div>No orders found. Please try again later.</div>;
   }
+
+  // Handle back to home based on user role
+  const handleBackToHome = () => {
+    const role = localStorage.getItem("role");
+    if (role === "user") {
+      navigate("/userpage"); // Go to the user page if logged in
+    } else {
+      navigate("/login"); // Redirect to login page if not logged in
+    }
+  };
 
   return (
     <div>
-      {/* Include the NavBar */}
-      <NavBar role={role} />
-      <br /><br /><br /><br />
-      
+      <NavBar />
       <div className="order-confirmation-container">
+        <h1><br /><br /></h1>
         <h1>Order History</h1>
         <p>Thank you for your purchases! Here is the list of your past orders.</p>
 
         {allOrders.map((order, index) => (
           <div key={index} className="order-details-box">
-            <h2>Order {index + 1}</h2> {/* Display order number starting from 1 */}
+            <h1><br /><br /></h1>
+            <h2>Order {index + 1}</h2>
             <p><strong>Invoice Number:</strong> {order.invoiceNumber}</p>
             <p><strong>Order Date:</strong> {new Date(order.date).toLocaleDateString()}</p>
 
@@ -86,19 +93,17 @@ const Orders = () => {
         ))}
 
         <div className="order-actions">
-          <button onClick={() => navigate("/userpage")}>Back to Home</button>
+          <button onClick={handleBackToHome}>Back to Home</button> 
+          
           <button onClick={resetOrderHistory}>Clear History</button>
         </div>
       </div>
-
       <Footer />
     </div>
   );
 };
 
 export default Orders;
-
-
 
 
 
